@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { FilterBar } from '@/components/FilterBar'
 import { ProductGrid } from '@/components/ProductGrid'
 import { Pagination } from '@/components/Pagination'
@@ -16,12 +16,28 @@ const categoryNames: Record<string, string> = {
   pc: '💻 PC & Peripherals',
 }
 
+const ITEMS_PER_PAGE = 6
+
 function ShopContent() {
   const searchParams = useSearchParams()
   const category = searchParams.get('category')
   const search = searchParams.get('search')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
 
   const categoryTitle = category ? categoryNames[category] || category.toUpperCase() : null
+
+  // Reset to page 1 when category or search changes
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
+
+  const handleTotalPagesChange = (total: number) => {
+    setTotalPages(total)
+    if (currentPage > total && total > 0) {
+      setCurrentPage(1)
+    }
+  }
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
@@ -114,10 +130,20 @@ function ShopContent() {
             </div>
           </div>
 
-          <ProductGrid category={category} searchQuery={search} />
+          <ProductGrid 
+            category={category} 
+            searchQuery={search} 
+            currentPage={currentPage}
+            itemsPerPage={ITEMS_PER_PAGE}
+            onTotalPagesChange={handleTotalPagesChange}
+          />
           
           <div className="mt-12">
-            <Pagination />
+            <Pagination 
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
       </div>

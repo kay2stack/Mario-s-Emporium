@@ -1,12 +1,15 @@
 'use client'
 
 import { Star, Eye, TrendingUp } from 'lucide-react'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 
 interface ProductGridProps {
   category?: string | null
   searchQuery?: string | null
+  currentPage?: number
+  itemsPerPage?: number
+  onTotalPagesChange?: (totalPages: number) => void
 }
 
 const categoryMap: Record<string, string[]> = {
@@ -18,7 +21,13 @@ const categoryMap: Record<string, string[]> = {
   pc: ['PC'],
 }
 
-export function ProductGrid({ category, searchQuery }: ProductGridProps) {
+export function ProductGrid({ 
+  category, 
+  searchQuery, 
+  currentPage = 1, 
+  itemsPerPage = 12,
+  onTotalPagesChange 
+}: ProductGridProps) {
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
 
   const allProducts = [
@@ -180,7 +189,7 @@ export function ProductGrid({ category, searchQuery }: ProductGridProps) {
     },
   ]
 
-  const products = useMemo(() => {
+  const { filteredProducts, paginatedProducts, totalPages } = useMemo(() => {
     let filtered = allProducts
 
     if (category && categoryMap[category]) {
@@ -200,10 +209,25 @@ export function ProductGrid({ category, searchQuery }: ProductGridProps) {
       )
     }
 
-    return filtered
-  }, [category, searchQuery])
+    const total = Math.ceil(filtered.length / itemsPerPage)
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const paginated = filtered.slice(startIndex, startIndex + itemsPerPage)
 
-  if (products.length === 0) {
+    return { 
+      filteredProducts: filtered, 
+      paginatedProducts: paginated, 
+      totalPages: total 
+    }
+  }, [category, searchQuery, currentPage, itemsPerPage])
+
+  // Notify parent of total pages
+  useEffect(() => {
+    if (onTotalPagesChange) {
+      onTotalPagesChange(totalPages)
+    }
+  }, [totalPages, onTotalPagesChange])
+
+  if (filteredProducts.length === 0) {
     return (
       <div className="text-center py-16">
         <span className="text-6xl mb-4 block">🍄</span>
@@ -220,7 +244,7 @@ export function ProductGrid({ category, searchQuery }: ProductGridProps) {
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
-      {products.map((product) => (
+      {paginatedProducts.map((product) => (
         <Link
           key={product.id}
           href={`/product/${product.id}`}
