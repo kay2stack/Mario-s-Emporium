@@ -13,43 +13,199 @@ export default function ProductPage() {
   const [quantity, setQuantity] = useState(1)
   const [isFavorite, setIsFavorite] = useState(false)
 
-  const product = {
-    id: 1,
-    name: 'Limited Edition Gaming Console',
-    category: 'Gaming',
-    price: 499.99,
-    originalPrice: 599.99,
-    rating: 4.8,
-    reviewCount: 142,
-    description: 'Experience gaming like never before with this limited edition console. Featuring exclusive design elements, enhanced performance, and bundled with rare collectible items. Perfect for serious gamers and collectors alike.',
-    features: [
-      'Exclusive limited edition design',
-      'Enhanced performance and cooling',
-      'Includes 2 custom controllers',
-      'Bundled with rare collectible items',
-      '1-year extended warranty',
-    ],
-    specifications: {
-      'Model': 'LE-2025',
-      'Color': 'Midnight Black with Gold Accents',
-      'Storage': '1TB SSD',
-      'Connectivity': 'Wi-Fi 6, Bluetooth 5.2',
-      'Dimensions': '30 × 15 × 5 cm',
-      'Weight': '3.5 kg',
+  // Product database
+  const allProducts: Record<string, typeof productDefault> = {
+    '1': {
+      id: 1,
+      name: 'Limited Edition Gaming Console',
+      category: 'Gaming',
+      price: 499.99,
+      originalPrice: 599.99,
+      rating: 4.8,
+      reviewCount: 142,
+      description: 'Experience gaming like never before with this limited edition console. Featuring exclusive design elements, enhanced performance, and bundled with rare collectible items.',
+      features: ['Exclusive limited edition design', 'Enhanced performance', 'Includes 2 controllers', 'Bundled collectibles', '1-year warranty'],
+      specifications: { 'Model': 'LE-2025', 'Storage': '1TB SSD', 'Connectivity': 'Wi-Fi 6', 'Weight': '3.5 kg' },
+      stock: 12,
+      images: ['https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1493711662062-fa541f7f3d24?w=600&h=600&fit=crop'],
     },
-    stock: 12,
-    images: [
-      { color: 'from-primary to-primary-dark', label: 'Front View' },
-      { color: 'from-primary/80 to-primary-dark/80', label: 'Side View' },
-      { color: 'from-primary/60 to-primary-dark/60', label: 'Back View' },
-      { color: 'from-primary/40 to-primary-dark/40', label: 'With Accessories' },
-    ],
+    '2': {
+      id: 2,
+      name: 'Vintage Retro Computer',
+      category: 'Retro Tech',
+      price: 299.99,
+      originalPrice: 399.99,
+      rating: 4.9,
+      reviewCount: 89,
+      description: 'A beautifully restored vintage computer from the golden age of computing. Perfect for collectors and retro enthusiasts.',
+      features: ['Fully restored and working', 'Original components', 'Includes documentation', 'Collector grade'],
+      specifications: { 'Year': '1985', 'Condition': 'Excellent', 'RAM': '64KB', 'Storage': 'Floppy Drive' },
+      stock: 3,
+      images: ['https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=600&fit=crop'],
+    },
+    '3': {
+      id: 3,
+      name: 'Professional Work Gear Set',
+      category: 'Workwear',
+      price: 149.99,
+      originalPrice: 199.99,
+      rating: 4.7,
+      reviewCount: 56,
+      description: 'Complete professional work gear set including safety equipment and tools. Built for durability and comfort.',
+      features: ['Safety certified', 'Durable materials', 'Complete set', 'All sizes available'],
+      specifications: { 'Material': 'Heavy-duty polyester', 'Certification': 'CE Approved', 'Sizes': 'S-XXL' },
+      stock: 24,
+      images: ['https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=600&fit=crop'],
+    },
+    '4': {
+      id: 4,
+      name: 'Smart Tech Bundle',
+      category: 'Electronics',
+      price: 199.99,
+      originalPrice: 249.99,
+      rating: 4.6,
+      reviewCount: 203,
+      description: 'Everything you need to make your home smart. Includes hub, sensors, and smart plugs.',
+      features: ['Easy setup', 'Voice control compatible', 'Energy monitoring', 'Mobile app included'],
+      specifications: { 'Connectivity': 'Wi-Fi & Zigbee', 'Compatibility': 'Alexa, Google Home', 'Items': '5 pieces' },
+      stock: 18,
+      images: ['https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=600&h=600&fit=crop'],
+    },
+    '5': {
+      id: 5,
+      name: 'Gaming Headset Pro',
+      category: 'Audio',
+      price: 129.99,
+      originalPrice: 159.99,
+      rating: 4.5,
+      reviewCount: 312,
+      description: 'Professional gaming headset with surround sound and noise-cancelling microphone.',
+      features: ['7.1 Surround Sound', 'Noise-cancelling mic', 'RGB lighting', 'Memory foam cushions'],
+      specifications: { 'Driver': '50mm', 'Frequency': '20Hz-20kHz', 'Connection': 'USB / 3.5mm' },
+      stock: 42,
+      images: ['https://images.unsplash.com/photo-1599669454699-248893623440?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&h=600&fit=crop'],
+    },
+    '6': {
+      id: 6,
+      name: 'Mechanical Keyboard RGB',
+      category: 'PC',
+      price: 89.99,
+      originalPrice: 119.99,
+      rating: 4.7,
+      reviewCount: 189,
+      description: 'Full RGB mechanical keyboard with hot-swappable switches and programmable macros.',
+      features: ['Hot-swappable switches', 'Full RGB', 'Programmable', 'Aluminum frame'],
+      specifications: { 'Switches': 'Cherry MX Blue', 'Layout': 'Full-size', 'Connection': 'USB-C' },
+      stock: 36,
+      images: ['https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&h=600&fit=crop'],
+    },
+    '7': {
+      id: 7,
+      name: 'Retro Game Collection',
+      category: 'Retro Tech',
+      price: 199.99,
+      originalPrice: 249.99,
+      rating: 4.9,
+      reviewCount: 67,
+      description: 'Curated collection of classic retro games. All tested and working perfectly.',
+      features: ['20+ games included', 'All tested', 'Original cases', 'Collector value'],
+      specifications: { 'Platform': 'Mixed', 'Condition': 'Good to Excellent', 'Era': '80s-90s' },
+      stock: 8,
+      images: ['https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1493711662062-fa541f7f3d24?w=600&h=600&fit=crop'],
+    },
+    '8': {
+      id: 8,
+      name: 'Safety Work Boots',
+      category: 'Workwear',
+      price: 79.99,
+      originalPrice: 99.99,
+      rating: 4.6,
+      reviewCount: 124,
+      description: 'Steel toe safety boots with slip-resistant soles. Comfort meets protection.',
+      features: ['Steel toe cap', 'Slip resistant', 'Waterproof', 'Shock absorbing'],
+      specifications: { 'Material': 'Leather upper', 'Sole': 'Rubber', 'Safety': 'S3 rated' },
+      stock: 56,
+      images: ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop'],
+    },
+    '9': {
+      id: 9,
+      name: 'Gaming Monitor 27"',
+      category: 'PC',
+      price: 349.99,
+      originalPrice: 399.99,
+      rating: 4.8,
+      reviewCount: 89,
+      description: '27-inch gaming monitor with 144Hz refresh rate and 1ms response time.',
+      features: ['144Hz refresh', '1ms response', 'AMD FreeSync', 'HDR support'],
+      specifications: { 'Size': '27 inch', 'Resolution': '2560x1440', 'Panel': 'IPS' },
+      stock: 15,
+      images: ['https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&h=600&fit=crop'],
+    },
+    '10': {
+      id: 10,
+      name: 'Wireless Earbuds',
+      category: 'Audio',
+      price: 69.99,
+      originalPrice: 89.99,
+      rating: 4.4,
+      reviewCount: 267,
+      description: 'True wireless earbuds with active noise cancellation and 30-hour battery life.',
+      features: ['Active noise cancellation', '30hr battery', 'Touch controls', 'IPX5 waterproof'],
+      specifications: { 'Driver': '10mm', 'Bluetooth': '5.2', 'Charging': 'USB-C & Wireless' },
+      stock: 48,
+      images: ['https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=600&h=600&fit=crop'],
+    },
+    '11': {
+      id: 11,
+      name: 'Gaming Chair Pro',
+      category: 'Gaming',
+      price: 299.99,
+      originalPrice: 349.99,
+      rating: 4.7,
+      reviewCount: 156,
+      description: 'Ergonomic gaming chair with lumbar support, adjustable armrests, and reclining function.',
+      features: ['Ergonomic design', '4D armrests', '180° recline', 'Memory foam'],
+      specifications: { 'Material': 'PU Leather', 'Max Weight': '150kg', 'Height': 'Adjustable' },
+      stock: 22,
+      images: ['https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=600&h=600&fit=crop'],
+    },
+    '12': {
+      id: 12,
+      name: 'Smart Home Hub',
+      category: 'Electronics',
+      price: 129.99,
+      originalPrice: 149.99,
+      rating: 4.5,
+      reviewCount: 98,
+      description: 'Central hub for all your smart home devices. Control everything from one place.',
+      features: ['Universal compatibility', 'Voice control', 'Automation', 'Energy tracking'],
+      specifications: { 'Protocols': 'Wi-Fi, Zigbee, Z-Wave', 'Voice': 'Alexa & Google', 'App': 'iOS & Android' },
+      stock: 31,
+      images: ['https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=600&h=600&fit=crop', 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=600&fit=crop'],
+    },
   }
 
+  const productDefault = {
+    id: 1,
+    name: 'Product Not Found',
+    category: 'Unknown',
+    price: 0,
+    originalPrice: 0,
+    rating: 0,
+    reviewCount: 0,
+    description: 'This product could not be found.',
+    features: [] as string[],
+    specifications: {} as Record<string, string>,
+    stock: 0,
+    images: ['https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=600&h=600&fit=crop'],
+  }
+
+  const product = allProducts[productId] || productDefault
+
   const relatedProducts = [
-    { id: 2, name: 'Gaming Headset Pro', price: 129.99, category: 'Audio' },
-    { id: 3, name: 'Mechanical Keyboard', price: 89.99, category: 'PC' },
-    { id: 4, name: 'Gaming Chair Pro', price: 299.99, category: 'Gaming' },
+    { id: 2, name: 'Vintage Retro Computer', price: 299.99, category: 'Retro Tech', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=300&fit=crop' },
+    { id: 5, name: 'Gaming Headset Pro', price: 129.99, category: 'Audio', image: 'https://images.unsplash.com/photo-1599669454699-248893623440?w=300&h=300&fit=crop' },
+    { id: 6, name: 'Mechanical Keyboard', price: 89.99, category: 'PC', image: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=300&h=300&fit=crop' },
   ]
 
   const addToCart = () => {
@@ -78,19 +234,12 @@ export default function ProductPage() {
         {/* Product Images */}
         <div>
           {/* Main Image */}
-          <div className={`aspect-square rounded-2xl bg-gradient-to-br ${product.images[selectedImage].color} mb-6`}>
-            <div className="w-full h-full flex items-center justify-center p-12">
-              <div className="text-center space-y-6">
-                <div className="w-32 h-32 mx-auto bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                  <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center">
-                    <span className="font-bebas text-4xl text-secondary">M</span>
-                  </div>
-                </div>
-                <div className="text-white font-bebas text-3xl">
-                  LIMITED EDITION
-                </div>
-              </div>
-            </div>
+          <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100 mb-6">
+            <img 
+              src={product.images[selectedImage]} 
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           {/* Thumbnails */}
@@ -99,15 +248,15 @@ export default function ProductPage() {
               <button
                 key={index}
                 onClick={() => setSelectedImage(index)}
-                className={`aspect-square rounded-xl bg-gradient-to-br ${image.color} border-2 ${
+                className={`aspect-square rounded-xl overflow-hidden border-2 ${
                   selectedImage === index ? 'border-primary' : 'border-transparent'
                 }`}
               >
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                    <span className="font-bebas text-lg text-white">{index + 1}</span>
-                  </div>
-                </div>
+                <img 
+                  src={image} 
+                  alt={`${product.name} view ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
               </button>
             ))}
           </div>
@@ -273,7 +422,13 @@ export default function ProductPage() {
               href={`/product/${related.id}`}
               className="card group"
             >
-              <div className="aspect-square rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 mb-4"></div>
+              <div className="aspect-square rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img 
+                  src={related.image} 
+                  alt={related.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
               <div className="space-y-2">
                 <span className="text-sm text-gray-500 font-barlow">{related.category}</span>
                 <h4 className="font-bebas text-xl text-secondary group-hover:text-primary transition-colors">

@@ -146,24 +146,22 @@ export function HeroSection() {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-xl"></div>
               
-              <div className="relative bg-surface rounded-2xl p-8 shadow-2xl border border-white/10">
-                <div className="aspect-square rounded-xl bg-gradient-to-br from-gray-900 to-secondary overflow-hidden">
-                  {/* Product Showcase */}
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-center space-y-4 p-8">
-                      <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center">
-                        <Gamepad2 className="w-10 h-10 text-white" />
-                      </div>
-                      <div>
-                        <div className="font-bebas text-2xl text-white">THIS WEEK&apos;S FINDS</div>
-                        <div className="font-barlow-condensed font-bold text-primary text-xl">BROWSE THE SHOP</div>
-                      </div>
-                      <a href="/shop" className="inline-block badge-new hover:scale-105 transition-transform cursor-pointer">
-                        SEE WHAT&apos;S IN STOCK →
-                      </a>
+              <div className="relative bg-surface rounded-2xl p-4 shadow-2xl border border-white/10">
+                <a href="/shop" className="block aspect-square rounded-xl overflow-hidden group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=500&h=500&fit=crop" 
+                    alt="Featured Gaming Console"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
+                    <div className="text-white">
+                      <div className="font-bebas text-2xl">THIS WEEK&apos;S TOP FIND</div>
+                      <div className="font-barlow text-sm text-gray-200">Limited Edition Gaming Console</div>
+                      <div className="font-bebas text-xl text-primary mt-1">£499.99</div>
                     </div>
                   </div>
-                </div>
+                </a>
                 
                 {/* Floating Elements */}
                 <div className="absolute -top-4 -right-4">

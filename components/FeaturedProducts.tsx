@@ -16,7 +16,7 @@ export function FeaturedProducts() {
       originalPrice: 599.99,
       rating: 4.8,
       reviewCount: 142,
-      imageColor: 'from-primary to-primary-dark',
+      image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=400&fit=crop',
       badge: 'JUST IN',
       stock: 12,
     },
@@ -28,7 +28,7 @@ export function FeaturedProducts() {
       originalPrice: 399.99,
       rating: 4.9,
       reviewCount: 89,
-      imageColor: 'from-purple-500 to-purple-600',
+      image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop',
       badge: 'RARE FIND',
       stock: 3,
     },
@@ -40,7 +40,7 @@ export function FeaturedProducts() {
       originalPrice: 199.99,
       rating: 4.7,
       reviewCount: 56,
-      imageColor: 'from-green-500 to-green-600',
+      image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=400&fit=crop',
       badge: 'BEST SELLER',
       stock: 24,
     },
@@ -52,7 +52,7 @@ export function FeaturedProducts() {
       originalPrice: 249.99,
       rating: 4.6,
       reviewCount: 203,
-      imageColor: 'from-blue-500 to-blue-600',
+      image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=400&fit=crop',
       badge: 'NEW DROP',
       stock: 18,
     },
@@ -89,19 +89,12 @@ export function FeaturedProducts() {
           >
             {/* Product Image */}
             <Link href={`/product/${product.id}`} className="relative mb-6 block">
-              <div className={`aspect-square rounded-xl bg-gradient-to-br ${product.imageColor} overflow-hidden`}>
-                <div className="w-full h-full flex items-center justify-center p-8">
-                  <div className="text-center space-y-4">
-                    <div className="w-16 h-16 mx-auto bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <span className="font-bebas text-2xl text-secondary">M</span>
-                      </div>
-                    </div>
-                    <div className="text-white font-barlow-condensed font-bold text-lg">
-                      {product.category.toUpperCase()}
-                    </div>
-                  </div>
-                </div>
+              <div className="aspect-square rounded-xl overflow-hidden bg-gray-100">
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
               
               {/* Badge */}

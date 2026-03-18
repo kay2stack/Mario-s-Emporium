@@ -16,7 +16,7 @@ export function ProductGrid() {
       originalPrice: 599.99,
       rating: 4.8,
       reviewCount: 142,
-      imageColor: 'from-primary to-primary-dark',
+      image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=400&fit=crop',
       badge: 'JUST IN',
       stock: 12,
       tags: ['Limited', 'Gaming', 'Console'],
@@ -29,7 +29,7 @@ export function ProductGrid() {
       originalPrice: 399.99,
       rating: 4.9,
       reviewCount: 89,
-      imageColor: 'from-purple-500 to-purple-600',
+      image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop',
       badge: 'RARE FIND',
       stock: 3,
       tags: ['Vintage', 'Rare', 'Collector'],
@@ -42,7 +42,7 @@ export function ProductGrid() {
       originalPrice: 199.99,
       rating: 4.7,
       reviewCount: 56,
-      imageColor: 'from-green-500 to-green-600',
+      image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=400&fit=crop',
       badge: 'BEST SELLER',
       stock: 24,
       tags: ['Professional', 'Safety', 'Gear'],
@@ -55,7 +55,7 @@ export function ProductGrid() {
       originalPrice: 249.99,
       rating: 4.6,
       reviewCount: 203,
-      imageColor: 'from-blue-500 to-blue-600',
+      image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=400&fit=crop',
       badge: 'NEW DROP',
       stock: 18,
       tags: ['Smart', 'Bundle', 'Tech'],
@@ -68,20 +68,20 @@ export function ProductGrid() {
       originalPrice: 159.99,
       rating: 4.5,
       reviewCount: 312,
-      imageColor: 'from-pink-500 to-pink-600',
+      image: 'https://images.unsplash.com/photo-1599669454699-248893623440?w=400&h=400&fit=crop',
       badge: 'POPULAR',
       stock: 42,
       tags: ['Audio', 'Gaming', 'Wireless'],
     },
     {
       id: 6,
-      name: 'Mechanical Keyboard',
+      name: 'Mechanical Keyboard RGB',
       category: 'PC',
       price: 89.99,
       originalPrice: 119.99,
       rating: 4.7,
       reviewCount: 189,
-      imageColor: 'from-orange-500 to-orange-600',
+      image: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop',
       badge: 'HOT',
       stock: 36,
       tags: ['Keyboard', 'Mechanical', 'RGB'],
@@ -94,7 +94,7 @@ export function ProductGrid() {
       originalPrice: 249.99,
       rating: 4.9,
       reviewCount: 67,
-      imageColor: 'from-purple-500 to-purple-600',
+      image: 'https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=400&h=400&fit=crop',
       badge: 'COLLECTOR',
       stock: 8,
       tags: ['Retro', 'Games', 'Collection'],
@@ -107,7 +107,7 @@ export function ProductGrid() {
       originalPrice: 99.99,
       rating: 4.6,
       reviewCount: 124,
-      imageColor: 'from-green-500 to-green-600',
+      image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
       badge: 'ESSENTIAL',
       stock: 56,
       tags: ['Safety', 'Work', 'Boots'],
@@ -120,7 +120,7 @@ export function ProductGrid() {
       originalPrice: 399.99,
       rating: 4.8,
       reviewCount: 89,
-      imageColor: 'from-blue-500 to-blue-600',
+      image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=400&fit=crop',
       badge: 'NEW',
       stock: 15,
       tags: ['Monitor', 'Gaming', '144Hz'],
@@ -133,7 +133,7 @@ export function ProductGrid() {
       originalPrice: 89.99,
       rating: 4.4,
       reviewCount: 267,
-      imageColor: 'from-pink-500 to-pink-600',
+      image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop',
       badge: 'VALUE',
       stock: 48,
       tags: ['Wireless', 'Audio', 'Portable'],
@@ -146,7 +146,7 @@ export function ProductGrid() {
       originalPrice: 349.99,
       rating: 4.7,
       reviewCount: 156,
-      imageColor: 'from-primary to-primary-dark',
+      image: 'https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=400&h=400&fit=crop',
       badge: 'COMFORT',
       stock: 22,
       tags: ['Chair', 'Gaming', 'Ergonomic'],
@@ -159,7 +159,7 @@ export function ProductGrid() {
       originalPrice: 149.99,
       rating: 4.5,
       reviewCount: 98,
-      imageColor: 'from-blue-500 to-blue-600',
+      image: 'https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=400&h=400&fit=crop',
       badge: 'SMART',
       stock: 31,
       tags: ['Smart', 'Home', 'Hub'],
@@ -177,19 +177,12 @@ export function ProductGrid() {
         >
           {/* Product Image */}
           <Link href={`/product/${product.id}`} className="block relative mb-6">
-            <div className={`aspect-square rounded-xl bg-gradient-to-br ${product.imageColor} overflow-hidden`}>
-              <div className="w-full h-full flex items-center justify-center p-8">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                      <span className="font-bebas text-2xl text-secondary">M</span>
-                    </div>
-                  </div>
-                  <div className="text-white font-barlow-condensed font-bold text-lg">
-                    {product.category.toUpperCase()}
-                  </div>
-                </div>
-              </div>
+            <div className="aspect-square rounded-xl overflow-hidden bg-gray-100">
+              <img 
+                src={product.image} 
+                alt={product.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             
             {/* Badge */}
