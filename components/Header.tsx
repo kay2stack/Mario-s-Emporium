@@ -1,20 +1,21 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, ShoppingBag, Search } from 'lucide-react'
+import { Menu, X, ShoppingBag, Search, Heart } from 'lucide-react'
 import Link from 'next/link'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
-  const navigation = [
-    { name: 'Gaming & Consoles', href: '/shop?category=gaming' },
-    { name: 'Electronics', href: '/shop?category=electronics' },
-    { name: 'Retro Tech', href: '/shop?category=retro' },
-    { name: 'Workwear & PPE', href: '/shop?category=workwear' },
-    { name: 'All Categories', href: '/shop' },
+  const categories = [
+    { name: 'All', href: '/shop' },
+    { name: '🎮 Gaming', href: '/shop?category=gaming' },
+    { name: '📺 Retro Tech', href: '/shop?category=retro' },
+    { name: '👷 Workwear', href: '/shop?category=workwear' },
+    { name: '🔌 Electronics', href: '/shop?category=electronics' },
+    { name: '🎧 Audio', href: '/shop?category=audio' },
+    { name: '💻 PC', href: '/shop?category=pc' },
   ]
 
   const handleSearch = (e: React.FormEvent) => {
@@ -25,114 +26,120 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 glass-effect border-b">
-      <div className="section-padding">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              {isMenuOpen ? (
-                <X className="w-6 h-6 text-secondary" />
-              ) : (
-                <Menu className="w-6 h-6 text-secondary" />
-              )}
-            </button>
-            
-            <Link href="/" className="ml-2 lg:ml-0">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bebas text-lg">M</span>
-                </div>
-                <span className="font-bebas text-2xl text-gradient">
-                  Super Mario&apos;s<span className="text-secondary">Emporium</span>
-                </span>
-              </div>
-            </Link>
-          </div>
+    <header className="sticky top-0 z-50">
+      {/* Main Nav - Mario Red */}
+      <nav className="bg-mario-red border-b-[5px] border-mario-red-dark px-4 md:px-8 py-3 flex items-center gap-4" style={{ boxShadow: '0 4px 0 #b5100e' }}>
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="lg:hidden p-2 rounded-lg bg-white/10 border-2 border-white/30 text-white"
+        >
+          {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navigation.map((item) => (
+        {/* Logo with Mushroom */}
+        <Link href="/" className="flex items-center gap-2 shrink-0">
+          <span className="text-3xl">🍄</span>
+          <span className="font-fredoka text-xl md:text-2xl text-white hidden sm:block" style={{ textShadow: '2px 2px 0 #b5100e' }}>
+            Mario&apos;s <span className="text-mario-yellow">Emporium</span>
+          </span>
+        </Link>
+
+        {/* Search Bar - Yellow Border */}
+        <form onSubmit={handleSearch} className="flex-1 max-w-xl hidden md:flex">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search gaming gear, retro tech..."
+            className="flex-1 border-[3px] border-mario-yellow border-r-0 rounded-l-3xl px-4 py-2 font-nunito font-semibold text-sm outline-none focus:border-mario-yellow-dark"
+          />
+          <button 
+            type="submit"
+            className="bg-mario-yellow border-[3px] border-mario-yellow-dark border-l-0 rounded-r-3xl px-4 hover:bg-white transition-colors"
+          >
+            <Search className="w-5 h-5 text-gray-800" />
+          </button>
+        </form>
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2 ml-auto">
+          <Link 
+            href="/shop" 
+            className="hidden sm:flex items-center gap-1 bg-mario-yellow text-gray-900 font-fredoka text-sm px-4 py-2 rounded-full border-[3px] border-mario-yellow-dark hover:bg-white transition-colors"
+            style={{ boxShadow: '0 3px 0 #c9a000' }}
+          >
+            🛍️ SHOP
+          </Link>
+          <Link 
+            href="/cart" 
+            className="flex items-center gap-1 bg-white/15 text-white font-fredoka text-sm px-3 py-2 rounded-full border-2 border-white/30 hover:bg-white/25 transition-colors"
+          >
+            <ShoppingBag className="w-4 h-4" />
+            <span className="hidden sm:inline">Cart</span>
+            <span className="bg-mario-blue text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-fredoka ml-1">0</span>
+          </Link>
+        </div>
+      </nav>
+
+      {/* Category Strip - Darker Red */}
+      <div className="bg-mario-red-dark px-4 md:px-8 py-2 flex gap-4 overflow-x-auto border-b-[3px] border-[#8a0c0e] scrollbar-hide">
+        {categories.map((cat) => (
+          <Link
+            key={cat.name}
+            href={cat.href}
+            className="font-fredoka text-sm text-white/80 hover:text-mario-yellow hover:bg-white/10 px-3 py-1 rounded-lg whitespace-nowrap transition-colors"
+          >
+            {cat.name}
+          </Link>
+        ))}
+      </div>
+
+      {/* Mobile Search */}
+      <div className="md:hidden bg-mario-red-dark px-4 py-2 border-b-[3px] border-[#8a0c0e]">
+        <form onSubmit={handleSearch} className="flex">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search..."
+            className="flex-1 border-[3px] border-mario-yellow border-r-0 rounded-l-3xl px-4 py-2 font-nunito font-semibold text-sm outline-none"
+          />
+          <button 
+            type="submit"
+            className="bg-mario-yellow border-[3px] border-mario-yellow-dark border-l-0 rounded-r-3xl px-4"
+          >
+            <Search className="w-5 h-5 text-gray-800" />
+          </button>
+        </form>
+      </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-white border-b-4 border-gray-200 py-4 px-4">
+          <div className="flex flex-col space-y-2">
+            {categories.map((cat) => (
               <Link
-                key={item.name}
-                href={item.href}
-                className="font-barlow-condensed font-bold text-secondary hover:text-primary transition-colors text-lg"
+                key={cat.name}
+                href={cat.href}
+                className="font-fredoka text-gray-800 hover:text-mario-red transition-colors py-3 px-4 rounded-xl hover:bg-mario-cream"
+                onClick={() => setIsMenuOpen(false)}
               >
-                {item.name}
+                {cat.name}
               </Link>
             ))}
-          </nav>
-
-          {/* Action Buttons */}
-          <div className="flex items-center space-x-2">
-            {/* Search Toggle */}
-            <button 
-              onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              <Search className="w-5 h-5 text-secondary" />
-            </button>
-            
-            {/* Cart Link */}
-            <Link href="/cart" className="p-2 rounded-lg hover:bg-gray-100 transition-colors relative">
-              <ShoppingBag className="w-5 h-5 text-secondary" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Search Bar */}
-        {searchOpen && (
-          <div className="py-3 border-t">
-            <form onSubmit={handleSearch} className="flex gap-2">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search gaming gear, retro tech, electronics..."
-                  className="input-field pl-10 w-full"
-                  autoFocus
-                />
-              </div>
-              <button type="submit" className="btn-primary px-6">
-                SEARCH
-              </button>
-            </form>
-          </div>
-        )}
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t">
-            <div className="flex flex-col space-y-3">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="font-barlow-condensed font-bold text-secondary hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-gray-50"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
-              <div className="pt-4 border-t">
-                <Link href="/cart" className="flex items-center gap-2 py-2 px-4 text-secondary hover:text-primary font-barlow-condensed font-bold">
-                  <ShoppingBag className="w-5 h-5" />
-                  View Cart
-                </Link>
-                <Link href="/contact" className="flex items-center gap-2 py-2 px-4 text-secondary hover:text-primary font-barlow-condensed font-bold">
-                  Contact Us
-                </Link>
-              </div>
+            <div className="pt-4 border-t-2 border-dashed border-gray-200 mt-2">
+              <Link href="/cart" className="flex items-center gap-2 py-3 px-4 text-gray-800 hover:text-mario-red font-fredoka rounded-xl hover:bg-mario-cream">
+                <ShoppingBag className="w-5 h-5" />
+                View Cart
+              </Link>
+              <Link href="/contact" className="flex items-center gap-2 py-3 px-4 text-gray-800 hover:text-mario-red font-fredoka rounded-xl hover:bg-mario-cream">
+                📞 Contact Us
+              </Link>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </header>
   )
 }

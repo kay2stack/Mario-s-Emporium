@@ -35,30 +35,36 @@ export function Footer() {
   ]
 
   return (
-    <footer className="bg-secondary text-white mt-20">
+    <footer className="bg-[#1a0a00] text-white mt-0">
+      {/* Ground Blocks Border */}
+      <div className="h-[30px] flex">
+        {[...Array(30)].map((_, i) => (
+          <div key={i} className="flex-1 bg-mario-ground border-t-2 border-[#e09820] border-r border-[#8a4e08]"></div>
+        ))}
+      </div>
+      
       <div className="section-padding py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-bebas text-xl">M</span>
-              </div>
-              <span className="font-bebas text-3xl">
-                Super Mario&apos;s<span className="text-primary">Emporium</span>
+              <span className="text-4xl">🍄</span>
+              <span className="font-fredoka text-2xl">
+                Mario&apos;s <span className="text-mario-yellow">Emporium</span>
               </span>
             </div>
-            <p className="text-gray-300 font-barlow">
-              Hidden gems, practical gear, and one-off bargains. The stock is always changing.
+            <p className="text-gray-400 font-nunito">
+              Power up your finds! Gaming gear, retro tech, workwear & hidden gems. 🎮
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
+                  className="w-10 h-10 bg-mario-red rounded-xl flex items-center justify-center hover:bg-mario-yellow hover:text-gray-900 transition-colors border-2 border-mario-red-dark"
+                  style={{ boxShadow: '0 3px 0 #b5100e' }}
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
@@ -69,15 +75,15 @@ export function Footer() {
 
           {/* Shop */}
           <div>
-            <h3 className="font-bebas text-2xl mb-4">SHOP</h3>
+            <h3 className="font-fredoka text-xl mb-4 text-mario-yellow">🛍️ SHOP</h3>
             <ul className="space-y-2">
               {shopCategories.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-300 hover:text-primary transition-colors font-barlow flex items-center gap-2"
+                    className="text-gray-400 hover:text-mario-yellow transition-colors font-nunito font-semibold flex items-center gap-2"
                   >
-                    <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                    <span className="w-2 h-2 bg-mario-red rounded-sm"></span>
                     {item.name}
                   </Link>
                 </li>
@@ -87,15 +93,15 @@ export function Footer() {
 
           {/* INFO */}
           <div>
-            <h3 className="font-bebas text-2xl mb-4">INFO</h3>
+            <h3 className="font-fredoka text-xl mb-4 text-mario-yellow">ℹ️ INFO</h3>
             <ul className="space-y-2">
               {infoLinks.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-300 hover:text-primary transition-colors font-barlow flex items-center gap-2"
+                    className="text-gray-400 hover:text-mario-yellow transition-colors font-nunito font-semibold flex items-center gap-2"
                   >
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full"></span>
+                    <span className="w-2 h-2 bg-mario-blue rounded-sm"></span>
                     {item.name}
                   </Link>
                 </li>
@@ -105,11 +111,11 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-bebas text-2xl mb-4">CONTACT</h3>
+            <h3 className="font-fredoka text-xl mb-4 text-mario-yellow">📞 CONTACT</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                <p className="text-gray-300 font-barlow">
+                <MapPin className="w-5 h-5 text-mario-green mt-1 flex-shrink-0" />
+                <p className="text-gray-400 font-nunito">
                   123 Gaming Street<br />
                   Tech City, TC1 2AB<br />
                   United Kingdom
@@ -117,15 +123,15 @@ export function Footer() {
               </div>
               
               <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-primary" />
-                <a href="tel:+441234567890" className="text-gray-300 hover:text-primary transition-colors font-barlow">
+                <Phone className="w-5 h-5 text-mario-green" />
+                <a href="tel:+441234567890" className="text-gray-400 hover:text-mario-yellow transition-colors font-nunito">
                   +44 1234 567890
                 </a>
               </div>
               
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-primary" />
-                <a href="mailto:hello@mariosemporium.com" className="text-gray-300 hover:text-primary transition-colors font-barlow">
+                <Mail className="w-5 h-5 text-mario-green" />
+                <a href="mailto:hello@mariosemporium.com" className="text-gray-400 hover:text-mario-yellow transition-colors font-nunito">
                   hello@mariosemporium.com
                 </a>
               </div>
@@ -134,48 +140,46 @@ export function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="mt-12 pt-8 border-t border-white/20">
+        <div className="mt-12 pt-8 border-t border-white/10">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="font-bebas text-2xl mb-2">DON&apos;T MISS THE NEXT DROP</h3>
-            <p className="text-gray-300 font-barlow mb-6">
-              Get first pick on new stock. Be the first to know about our latest drops and exclusive deals.
+            <h3 className="font-fredoka text-2xl mb-2">🪙 DON&apos;T MISS THE NEXT DROP!</h3>
+            <p className="text-gray-400 font-nunito mb-6">
+              Be the first to know about our latest drops and exclusive power-ups!
             </p>
             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Your email address"
-                className="input-field flex-1 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-primary"
+                className="flex-1 bg-white/10 border-[3px] border-mario-yellow rounded-full px-4 py-2 text-white placeholder:text-gray-500 focus:border-mario-yellow-dark focus:outline-none font-nunito"
                 required
               />
-              <button type="submit" className="btn-primary whitespace-nowrap">
-                NOTIFY ME
+              <button type="submit" className="btn-mario-yellow whitespace-nowrap">
+                🔔 NOTIFY ME
               </button>
             </form>
           </div>
         </div>
 
         {/* Payment Methods */}
-        <div className="mt-12 pt-8 border-t border-white/20">
+        <div className="mt-12 pt-8 border-t border-white/10">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-gray-400 font-barlow text-sm">We accept:</p>
+            <p className="text-gray-500 font-fredoka text-sm">We accept:</p>
             <div className="flex items-center gap-3 flex-wrap justify-center">
-              <div className="bg-white/10 rounded px-3 py-1.5 text-xs font-barlow-condensed font-bold">PayPal</div>
-              <div className="bg-white/10 rounded px-3 py-1.5 text-xs font-barlow-condensed font-bold">Visa</div>
-              <div className="bg-white/10 rounded px-3 py-1.5 text-xs font-barlow-condensed font-bold">Mastercard</div>
-              <div className="bg-white/10 rounded px-3 py-1.5 text-xs font-barlow-condensed font-bold flex items-center gap-1">
-                <span className="text-yellow-400">₿</span> Crypto
-              </div>
+              <div className="bg-mario-blue/30 border-2 border-mario-blue rounded-lg px-3 py-1.5 text-xs font-fredoka">🅿️ PayPal</div>
+              <div className="bg-mario-blue/30 border-2 border-mario-blue rounded-lg px-3 py-1.5 text-xs font-fredoka">💳 Visa</div>
+              <div className="bg-mario-blue/30 border-2 border-mario-blue rounded-lg px-3 py-1.5 text-xs font-fredoka">💳 Mastercard</div>
+              <div className="bg-mario-yellow/30 border-2 border-mario-yellow rounded-lg px-3 py-1.5 text-xs font-fredoka">₿ Crypto</div>
             </div>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 pt-8 border-t border-white/20 text-center">
-          <p className="text-gray-400 font-barlow">
-            © {new Date().getFullYear()} Super Mario&apos;s Emporium. All rights reserved.
+        <div className="mt-8 pt-8 border-t border-white/10 text-center">
+          <p className="text-gray-500 font-nunito">
+            © {new Date().getFullYear()} Mario&apos;s Emporium. All rights reserved.
           </p>
-          <p className="text-gray-500 text-sm font-barlow mt-2">
-            Designed with ❤️ for gamers, tech enthusiasts, and bargain hunters. Game On!
+          <p className="text-gray-600 text-sm font-nunito mt-2">
+            🍄 Designed with ❤️ for gamers, tech enthusiasts, and bargain hunters. Game On! 🎮
           </p>
         </div>
       </div>

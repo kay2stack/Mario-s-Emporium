@@ -1,196 +1,136 @@
 'use client'
 
-import { useState } from 'react'
-import { Gamepad2, Cpu, Clock, Sparkles } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export function HeroSection() {
-  const [email, setEmail] = useState('')
+  const [coinPop, setCoinPop] = useState<number | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle email submission
-    console.log('Email submitted:', email)
-    setEmail('')
-    alert('You\'ll be notified about the next drop!')
+  const handleBlockClick = (blockId: number) => {
+    setCoinPop(blockId)
+    setTimeout(() => setCoinPop(null), 600)
   }
 
-  const highlights = [
-    { icon: Gamepad2, label: 'GAMING GEAR', color: 'text-primary' },
-    { icon: Cpu, label: 'RETRO TECH', color: 'text-accent' },
-    { icon: Clock, label: 'NEW STOCK', color: 'text-purple-500' },
-    { icon: Sparkles, label: 'JUST IN', color: 'text-yellow-500' },
-  ]
-
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 text-white">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-          backgroundSize: '40px 40px',
-        }} />
+    <section className="relative overflow-hidden min-h-[520px] flex items-center justify-center py-12 px-8"
+      style={{
+        background: 'linear-gradient(180deg, #5db8f5 0%, #87ceeb 60%, #c8851a 60%, #a06010 63.5%, #c8851a 63.5%)'
+      }}
+    >
+      {/* Floating Clouds */}
+      <div className="cloud absolute w-32 h-10 top-[15%]" style={{ animationDuration: '35s', left: '-100px' }}>
+        <div className="absolute bg-white rounded-full w-12 h-12 -top-4 left-4"></div>
+        <div className="absolute bg-white rounded-full w-8 h-8 -top-2 left-14"></div>
+      </div>
+      <div className="cloud absolute w-24 h-8 top-[30%]" style={{ animationDuration: '28s', animationDelay: '5s', left: '-100px' }}>
+        <div className="absolute bg-white rounded-full w-10 h-10 -top-4 left-2"></div>
+        <div className="absolute bg-white rounded-full w-6 h-6 -top-1 left-10"></div>
+      </div>
+      <div className="cloud absolute w-28 h-9 top-[8%]" style={{ animationDuration: '40s', animationDelay: '10s', left: '-100px' }}>
+        <div className="absolute bg-white rounded-full w-11 h-11 -top-4 left-3"></div>
+        <div className="absolute bg-white rounded-full w-7 h-7 -top-2 left-12"></div>
       </div>
 
-      <div className="section-padding py-20 md:py-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Content */}
-          <div className="space-y-8">
-            {/* Highlights */}
-            <div className="flex flex-wrap gap-4">
-              {highlights.map((item, index) => (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20 animate-float"
-                  style={{ animationDelay: `${index * 0.5}s` }}
-                >
-                  <item.icon className={`w-4 h-4 ${item.color}`} />
-                  <span className="font-barlow-condensed font-bold text-sm tracking-wider">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+      {/* Pipes */}
+      <div className="pipe absolute bottom-[60px] left-8 hidden md:flex">
+        <div className="pipe-head"></div>
+        <div className="pipe-body"></div>
+      </div>
+      <div className="pipe absolute bottom-[60px] right-8 hidden md:flex">
+        <div className="pipe-head"></div>
+        <div className="pipe-body"></div>
+      </div>
 
-            {/* Main Heading */}
-            <div className="space-y-4">
-              <div className="inline-block bg-primary/20 border border-primary/30 rounded-full px-4 py-1 mb-2">
-                <span className="font-barlow-condensed font-bold text-primary text-sm tracking-wider">
-                  YOUR ONE-STOP BARGAIN SHOP
-                </span>
-              </div>
-              
-              <h1 className="font-bebas text-5xl md:text-7xl leading-tight">
-                WE FIND IT.
-                <br />
-                <span className="text-gradient">YOU FIND IT HERE.</span>
-              </h1>
-              
-              <p className="text-xl text-gray-300 font-barlow max-w-lg">
-                Gaming consoles, retro tech, electronics, workwear &amp; more. 
-                We source the <span className="text-white font-semibold">hidden gems</span> and 
-                <span className="text-white font-semibold"> one-off bargains</span> so you don&apos;t have to hunt.
-                <span className="block mt-3 font-semibold text-primary">
-                  New stock drops weekly — grab it before it&apos;s gone.
-                </span>
-              </p>
-            </div>
+      {/* Question Blocks */}
+      <div 
+        className="q-block absolute top-[25%] left-[15%] hidden md:flex"
+        onClick={() => handleBlockClick(1)}
+      >
+        ?
+        {coinPop === 1 && <span className="absolute -top-8 text-2xl animate-bounce">🪙</span>}
+      </div>
+      <div 
+        className="q-block absolute top-[35%] right-[18%] hidden md:flex"
+        style={{ animationDelay: '0.5s' }}
+        onClick={() => handleBlockClick(2)}
+      >
+        ?
+        {coinPop === 2 && <span className="absolute -top-8 text-2xl animate-bounce">🪙</span>}
+      </div>
+      <div 
+        className="q-block absolute top-[20%] right-[30%] hidden lg:flex"
+        style={{ animationDelay: '1s' }}
+        onClick={() => handleBlockClick(3)}
+      >
+        ?
+        {coinPop === 3 && <span className="absolute -top-8 text-2xl animate-bounce">🪙</span>}
+      </div>
 
-            {/* Email Form */}
-            <div className="space-y-4 max-w-md">
-              <div className="space-y-2">
-                <h3 className="font-bebas text-2xl">Get First Pick on New Stock</h3>
-                <p className="text-gray-300 font-barlow">
-                  Be the first to know when we get new gaming gear, retro tech, and exclusive deals.
-                </p>
-              </div>
-              
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address"
-                    className="input-field flex-1 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-primary"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="btn-primary whitespace-nowrap bg-gradient-to-r from-primary to-accent hover:from-primary-dark hover:to-accent/80"
-                  >
-                    NOTIFY ME
-                  </button>
-                </div>
-                <p className="text-sm text-gray-400 font-barlow">
-                  No spam, just awesome deals. Unsubscribe anytime.
-                </p>
-              </form>
-            </div>
+      {/* Floating Coins & Stars */}
+      <span className="float-coin absolute top-[18%] left-[25%] hidden md:block">🪙</span>
+      <span className="float-coin absolute top-[28%] right-[25%] hidden md:block" style={{ animationDelay: '1s' }}>⭐</span>
+      <span className="float-coin absolute top-[40%] left-[10%] hidden lg:block" style={{ animationDelay: '2s' }}>🪙</span>
 
-            {/* What We Sell */}
-            <div className="pt-8 border-t border-white/20">
-              <p className="text-sm text-gray-400 font-barlow-condensed font-bold mb-4 tracking-wider">WHAT WE SELL:</p>
-              <div className="flex flex-wrap gap-2">
-                {['Gaming Consoles', 'Retro Tech', 'Electronics', 'Workwear & PPE', 'Vintage Finds', 'Tech Accessories'].map((cat) => (
-                  <span key={cat} className="bg-white/10 border border-white/20 rounded-full px-4 py-1.5 font-barlow text-sm text-gray-200">
-                    {cat}
-                  </span>
-                ))}
-              </div>
-            </div>
+      {/* Ground Blocks */}
+      <div className="absolute bottom-0 left-0 right-0 h-[60px] flex">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className="ground-block"></div>
+        ))}
+      </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6">
-              <div className="text-center">
-                <div className="font-bebas text-3xl text-primary">100+</div>
-                <div className="text-sm text-gray-300 font-barlow">Items in Stock</div>
-              </div>
-              <div className="text-center">
-                <div className="font-bebas text-3xl text-accent">500+</div>
-                <div className="text-sm text-gray-300 font-barlow">Happy Buyers</div>
-              </div>
-              <div className="text-center">
-                <div className="font-bebas text-3xl text-purple-400">Weekly</div>
-                <div className="text-sm text-gray-300 font-barlow">New Stock</div>
-              </div>
-              <div className="text-center">
-                <div className="font-bebas text-3xl text-yellow-400">UK</div>
-                <div className="text-sm text-gray-300 font-barlow">Fast Shipping</div>
-              </div>
-            </div>
-          </div>
+      {/* Hero Content */}
+      <div className="relative z-10 text-center max-w-3xl mx-auto" style={{ animation: 'popIn 0.6s 0.2s both cubic-bezier(0.17, 0.67, 0.35, 1.5)' }}>
+        {/* Mushrooms */}
+        <div className="flex justify-center gap-4 mb-4">
+          <span className="text-6xl md:text-7xl cursor-pointer hover:scale-125 hover:-rotate-12 transition-transform drop-shadow-lg">🍄</span>
+          <span className="text-6xl md:text-7xl cursor-pointer hover:scale-125 hover:rotate-12 transition-transform drop-shadow-lg" style={{ filter: 'hue-rotate(180deg)' }}>🍄</span>
+        </div>
 
-          {/* Right Column - Visual */}
-          <div className="relative">
-            {/* Main Product Showcase */}
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-xl"></div>
-              
-              <div className="relative bg-surface rounded-2xl p-4 shadow-2xl border border-white/10">
-                <a href="/shop" className="block aspect-square rounded-xl overflow-hidden group">
-                  <img 
-                    src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=500&h=500&fit=crop" 
-                    alt="Featured Gaming Console"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
-                    <div className="text-white">
-                      <div className="font-bebas text-2xl">THIS WEEK&apos;S TOP FIND</div>
-                      <div className="font-barlow text-sm text-gray-200">Limited Edition Gaming Console</div>
-                      <div className="font-bebas text-xl text-primary mt-1">£499.99</div>
-                    </div>
-                  </div>
-                </a>
-                
-                {/* Floating Elements */}
-                <div className="absolute -top-4 -right-4">
-                  <div className="bg-primary text-white font-bebas text-lg px-4 py-2 rounded-lg rotate-3 shadow-lg">
-                    JUST IN
-                  </div>
-                </div>
-                
-                <div className="absolute -bottom-4 -left-4">
-                  <div className="bg-accent text-white font-bebas text-lg px-4 py-2 rounded-lg -rotate-3 shadow-lg">
-                    RETRO TECH
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* Title */}
+        <h1 className="font-fredoka text-5xl md:text-7xl lg:text-8xl text-white leading-none mb-4"
+          style={{ textShadow: '4px 4px 0 #b5100e, 8px 8px 0 rgba(0,0,0,0.1)' }}
+        >
+          MARIO&apos;S <span className="text-mario-yellow" style={{ textShadow: '4px 4px 0 #c9a000, 8px 8px 0 rgba(0,0,0,0.1)' }}>EMPORIUM</span>
+        </h1>
 
-            {/* Decorative Elements */}
-            <div className="absolute -z-10 top-1/4 -right-8 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-            <div className="absolute -z-10 bottom-1/4 -left-8 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
-          </div>
+        {/* Subtitle */}
+        <div className="bg-white/90 rounded-2xl px-6 py-4 mx-auto max-w-xl mb-6 border-[3px] border-white"
+          style={{ boxShadow: '0 4px 0 rgba(0,0,0,0.08)', animation: 'popIn 0.6s 0.55s both cubic-bezier(0.17, 0.67, 0.35, 1.5)' }}
+        >
+          <p className="font-nunito font-bold text-gray-700 text-lg">
+            Power up your finds! 🎮 Gaming gear, retro tech, workwear & hidden gems. 
+            <span className="text-mario-red"> New stock drops weekly!</span>
+          </p>
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="flex gap-4 justify-center flex-wrap" style={{ animation: 'popIn 0.6s 0.7s both cubic-bezier(0.17, 0.67, 0.35, 1.5)' }}>
+          <Link href="/shop" className="btn-mario-red text-lg">
+            🛍️ BROWSE STOCK
+          </Link>
+          <Link href="/about" className="btn-mario-blue text-lg">
+            ℹ️ ABOUT US
+          </Link>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <div className="animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-primary rounded-full mt-2"></div>
-          </div>
+      {/* Score Band */}
+      <div className="absolute bottom-[60px] left-0 right-0 bg-[#1a0a00] py-3 px-8 flex justify-center gap-8 md:gap-16 flex-wrap border-b-4 border-[#333] z-20">
+        <div className="text-center">
+          <span className="font-fredoka text-[0.7rem] tracking-widest text-mario-yellow block">ITEMS</span>
+          <span className="font-fredoka text-2xl text-white">100+</span>
+        </div>
+        <div className="text-center">
+          <span className="font-fredoka text-[0.7rem] tracking-widest text-mario-yellow block">HAPPY BUYERS</span>
+          <span className="font-fredoka text-2xl text-white">500+</span>
+        </div>
+        <div className="text-center">
+          <span className="font-fredoka text-[0.7rem] tracking-widest text-mario-yellow block">NEW STOCK</span>
+          <span className="font-fredoka text-2xl text-white">WEEKLY</span>
+        </div>
+        <div className="text-center">
+          <span className="font-fredoka text-[0.7rem] tracking-widest text-mario-yellow block">SHIPPING</span>
+          <span className="font-fredoka text-2xl text-white">🇬🇧 UK</span>
         </div>
       </div>
     </section>
