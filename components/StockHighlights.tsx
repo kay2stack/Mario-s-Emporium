@@ -8,121 +8,115 @@ export function StockHighlights() {
     {
       icon: Gamepad2,
       title: 'Gaming Gear',
-      description: 'Latest consoles, accessories, and gaming peripherals',
-      count: '42 new items',
-      color: 'from-primary to-primary/80',
+      description: 'Consoles, accessories & peripherals',
+      count: '42 items',
+      emoji: '🎮',
       badge: 'HOT',
+      badgeColor: 'bg-mario-red text-white',
       href: '/shop?category=gaming',
     },
     {
       icon: Cpu,
       title: 'Retro Tech',
-      description: 'Vintage computers, classic consoles, and nostalgic tech',
-      count: '18 rare finds',
-      color: 'from-accent to-accent/80',
+      description: 'Vintage computers & classic consoles',
+      count: '18 finds',
+      emoji: '📺',
       badge: 'RARE',
+      badgeColor: 'bg-mario-yellow text-gray-900',
       href: '/shop?category=retro',
     },
     {
       icon: Shield,
-      title: 'Workwear & PPE',
-      description: 'Professional gear and safety equipment',
+      title: 'Workwear',
+      description: 'Professional gear & safety equipment',
       count: '56 in stock',
-      color: 'from-green-500 to-green-400',
+      emoji: '👷',
       badge: 'ESSENTIAL',
+      badgeColor: 'bg-mario-green text-white',
       href: '/shop?category=workwear',
     },
     {
       icon: Zap,
       title: 'Electronics',
-      description: 'Smart devices, components, and tech gadgets',
+      description: 'Smart devices & tech gadgets',
       count: '89 products',
-      color: 'from-purple-500 to-purple-400',
+      emoji: '🔌',
       badge: 'NEW',
+      badgeColor: 'bg-mario-blue text-white',
       href: '/shop?category=electronics',
     },
   ]
 
   const stats = [
-    { icon: TrendingUp, label: 'Stock Turnover', value: '48h', description: 'Average sell time' },
-    { icon: Clock, label: 'Next Drop', value: '12:00', description: 'Today at noon' },
+    { icon: TrendingUp, label: 'Avg Sell Time', value: '48h' },
+    { icon: Clock, label: 'Next Drop', value: '12:00' },
   ]
 
   return (
-    <section className="section-padding py-16">
-      <div className="text-center mb-12">
-        <h2 className="font-bebas text-4xl md:text-5xl text-secondary mb-4">
-          BROWSE <span className="text-gradient">STOCK</span>
+    <section className="px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      {/* Section Header */}
+      <div className="text-center mb-8 sm:mb-12">
+        <h2 className="font-fredoka text-2xl sm:text-3xl md:text-4xl text-gray-900 mb-2 sm:mb-3">
+          🏪 BROWSE <span className="text-mario-red">STOCK</span>
         </h2>
-        <p className="text-gray-600 font-barlow text-lg max-w-2xl mx-auto">
-          Our inventory changes daily. Here&apos;s what&apos;s hot right now across all categories.
+        <p className="text-gray-600 font-nunito text-sm sm:text-base max-w-xl mx-auto">
+          Our inventory changes daily. Here&apos;s what&apos;s hot right now!
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {highlights.map((item, index) => (
+      {/* Category Cards - 2 cols on mobile */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8 sm:mb-12">
+        {highlights.map((item) => (
           <Link
             key={item.title}
             href={item.href}
-            className="card group hover:scale-[1.02] transition-transform duration-300 block"
-            style={{ animationDelay: `${index * 0.1}s` }}
+            className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-sm hover:shadow-md transition-all duration-300 border-2 border-gray-100 hover:border-mario-red/30 group block"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className={`p-3 rounded-xl bg-gradient-to-br ${item.color}`}>
-                <item.icon className="w-6 h-6 text-white" />
-              </div>
-              <span className={`badge ${item.badge === 'HOT' ? 'bg-red-100 text-red-700' : 
-                item.badge === 'RARE' ? 'bg-purple-100 text-purple-700' :
-                item.badge === 'ESSENTIAL' ? 'bg-green-100 text-green-700' :
-                'bg-blue-100 text-blue-700'}`}>
+            {/* Header */}
+            <div className="flex items-start justify-between mb-2 sm:mb-3">
+              <span className="text-2xl sm:text-3xl">{item.emoji}</span>
+              <span className={`text-[9px] sm:text-xs font-fredoka px-1.5 sm:px-2 py-0.5 rounded-full ${item.badgeColor}`}>
                 {item.badge}
               </span>
             </div>
             
-            <h3 className="font-bebas text-2xl text-secondary mb-2">{item.title}</h3>
-            <p className="text-gray-600 font-barlow mb-4">{item.description}</p>
+            {/* Content */}
+            <h3 className="font-fredoka text-sm sm:text-lg text-gray-900 mb-1 group-hover:text-mario-red transition-colors">{item.title}</h3>
+            <p className="text-gray-500 font-nunito text-[11px] sm:text-sm mb-2 sm:mb-3 line-clamp-2 leading-snug">{item.description}</p>
             
-            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-              <span className="font-barlow-condensed font-bold text-secondary">{item.count}</span>
-              <span className="text-primary hover:text-primary-dark font-barlow-condensed font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
-                View All →
+            {/* Footer */}
+            <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-gray-100">
+              <span className="font-fredoka text-[10px] sm:text-sm text-gray-700">{item.count}</span>
+              <span className="text-mario-red font-fredoka text-[10px] sm:text-sm flex items-center gap-0.5 group-hover:gap-1.5 transition-all">
+                Shop →
               </span>
             </div>
           </Link>
         ))}
       </div>
 
-      {/* Live Stats */}
-      <div className="bg-gradient-to-r from-secondary to-secondary/90 rounded-2xl p-8 text-white">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center md:text-left">
-            <h3 className="font-bebas text-3xl mb-2">LIVE STOCK TRACKER</h3>
-            <p className="text-gray-300 font-barlow">
-              Real-time updates on what&apos;s available and what&apos;s selling fast.
+      {/* Live Stats - simplified for mobile */}
+      <div className="bg-[#1a0a00] rounded-xl sm:rounded-2xl p-4 sm:p-6 text-white">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+          <div className="text-center sm:text-left">
+            <h3 className="font-fredoka text-lg sm:text-xl text-mario-yellow mb-1">🔴 LIVE STOCK</h3>
+            <p className="text-gray-400 font-nunito text-xs sm:text-sm">
+              Real-time updates on availability
             </p>
           </div>
           
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="flex items-center justify-center gap-3 mb-2">
-                <div className="p-2 bg-white/10 rounded-lg">
-                  <stat.icon className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <div className="font-bebas text-4xl">{stat.value}</div>
-                  <div className="font-barlow-condensed font-bold text-sm text-gray-300">{stat.label}</div>
-                </div>
+          <div className="flex items-center gap-6 sm:gap-8">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="font-fredoka text-xl sm:text-2xl text-white">{stat.value}</div>
+                <div className="font-nunito text-[10px] sm:text-xs text-gray-400">{stat.label}</div>
               </div>
-              <p className="text-sm text-gray-400 font-barlow">{stat.description}</p>
-            </div>
-          ))}
+            ))}
+          </div>
           
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 rounded-full">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="font-barlow-condensed font-bold">LIVE UPDATES</span>
-            </div>
-            <p className="text-sm text-gray-400 font-barlow mt-2">Refreshing every 5 minutes</p>
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-mario-green/20 rounded-full border border-mario-green/40">
+            <div className="w-2 h-2 bg-mario-green rounded-full animate-pulse"></div>
+            <span className="font-fredoka text-xs text-mario-green">LIVE</span>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { Star, ShoppingBag, Eye, TrendingUp } from 'lucide-react'
+import { Star, Eye, TrendingUp } from 'lucide-react'
 import { useState } from 'react'
 import Link from 'next/link'
 
@@ -59,37 +59,40 @@ export function FeaturedProducts() {
   ]
 
   return (
-    <section className="section-padding py-16">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+    <section className="px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      {/* Section Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-4">
         <div>
-          <h2 className="font-bebas text-4xl md:text-5xl text-secondary mb-4">
-            FEATURED <span className="text-gradient">PRODUCTS</span>
+          <h2 className="font-fredoka text-2xl sm:text-3xl md:text-4xl text-gray-900 mb-2">
+            🔥 FEATURED <span className="text-mario-red">PRODUCTS</span>
           </h2>
-          <p className="text-gray-600 font-barlow text-lg">
+          <p className="text-gray-600 font-nunito text-sm sm:text-base">
             Check out what&apos;s hot right now. These won&apos;t last long!
           </p>
         </div>
         
-        <div className="mt-4 md:mt-0 flex items-center gap-4">
-          <div className="flex items-center gap-2 text-primary">
-            <TrendingUp className="w-5 h-5" />
-            <span className="font-barlow-condensed font-bold">TRENDING NOW</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 text-mario-red">
+            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="font-fredoka text-sm sm:text-base">TRENDING</span>
           </div>
-          <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+          <div className="w-2 h-2 bg-mario-red rounded-full animate-pulse"></div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Product Grid - 2 cols on mobile, 4 on desktop */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {products.map((product) => (
-          <div
+          <Link
             key={product.id}
-            className="card group relative overflow-hidden"
+            href={`/product/${product.id}`}
+            className="card group relative overflow-hidden block"
             onMouseEnter={() => setHoveredProduct(product.id)}
             onMouseLeave={() => setHoveredProduct(null)}
           >
             {/* Product Image */}
-            <Link href={`/product/${product.id}`} className="relative mb-6 block">
-              <div className="aspect-square rounded-xl overflow-hidden bg-gray-100">
+            <div className="relative mb-3 sm:mb-4">
+              <div className="aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-gray-100">
                 <img 
                   src={product.image} 
                   alt={product.name}
@@ -98,85 +101,78 @@ export function FeaturedProducts() {
               </div>
               
               {/* Badge */}
-              <div className="absolute top-4 left-4">
-                <span className={`badge ${
-                  product.badge === 'JUST IN' ? 'badge-new' :
-                  product.badge === 'RARE FIND' ? 'badge-retro' :
-                  'badge-stock'
+              <div className="absolute top-2 sm:top-3 left-2 sm:left-3">
+                <span className={`text-[10px] sm:text-xs font-fredoka px-2 py-1 rounded-full ${
+                  product.badge === 'JUST IN' ? 'bg-mario-green text-white' :
+                  product.badge === 'RARE FIND' ? 'bg-mario-yellow text-gray-900' :
+                  'bg-mario-red text-white'
                 }`}>
                   {product.badge}
                 </span>
               </div>
               
-              {/* Stock Indicator */}
-              <div className="absolute top-4 right-4">
-                <div className="flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
-                  <div className={`w-2 h-2 rounded-full ${
+              {/* Stock Indicator - hidden on small mobile */}
+              <div className="absolute top-2 sm:top-3 right-2 sm:right-3 hidden sm:block">
+                <div className="flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-0.5">
+                  <div className={`w-1.5 h-1.5 rounded-full ${
                     product.stock > 10 ? 'bg-green-500' :
                     product.stock > 5 ? 'bg-yellow-500' : 'bg-red-500'
                   }`}></div>
-                  <span className="text-sm font-barlow font-bold text-secondary">
+                  <span className="text-[10px] sm:text-xs font-nunito font-bold text-gray-700">
                     {product.stock} left
                   </span>
                 </div>
               </div>
               
-              {/* Quick View on Hover */}
-              <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
+              {/* Quick View on Hover - desktop only */}
+              <div className={`absolute bottom-3 left-1/2 transform -translate-x-1/2 transition-all duration-300 hidden sm:block ${
                 hoveredProduct === product.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}>
-                <span className="bg-white px-4 py-2 rounded-full shadow-lg font-barlow-condensed font-bold text-secondary flex items-center gap-2">
-                  <Eye className="w-4 h-4" />
-                  VIEW DETAILS
+                <span className="bg-white px-3 py-1.5 rounded-full shadow-lg font-fredoka text-sm text-gray-800 flex items-center gap-2">
+                  <Eye className="w-3 h-3" />
+                  VIEW
                 </span>
               </div>
-            </Link>
+            </div>
 
             {/* Product Info */}
-            <div className="space-y-3">
+            <div className="space-y-1 sm:space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500 font-barlow">{product.category}</span>
-                <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <span className="font-barlow font-bold text-secondary">{product.rating}</span>
-                  <span className="text-gray-400 text-sm">({product.reviewCount})</span>
+                <span className="text-[10px] sm:text-xs text-gray-500 font-nunito">{product.category}</span>
+                <div className="flex items-center gap-0.5">
+                  <Star className="w-3 h-3 sm:w-4 sm:h-4 text-mario-yellow fill-current" />
+                  <span className="font-nunito font-bold text-gray-700 text-xs sm:text-sm">{product.rating}</span>
                 </div>
               </div>
               
-              <Link href={`/product/${product.id}`}>
-                <h3 className="font-bebas text-xl text-secondary group-hover:text-primary transition-colors">
-                  {product.name}
-                </h3>
-              </Link>
+              <h3 className="font-fredoka text-sm sm:text-base md:text-lg text-gray-900 group-hover:text-mario-red transition-colors line-clamp-2 leading-tight">
+                {product.name}
+              </h3>
               
-              <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                <div className="space-y-1">
-                  <div className="font-bebas text-2xl text-secondary">£{product.price.toFixed(2)}</div>
-                  <div className="text-sm text-gray-400 font-barlow line-through">
+              <div className="flex items-end justify-between pt-2 sm:pt-3 border-t border-gray-100">
+                <div>
+                  <div className="font-fredoka text-lg sm:text-xl md:text-2xl text-gray-900">£{product.price.toFixed(2)}</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400 font-nunito line-through">
                     £{product.originalPrice.toFixed(2)}
                   </div>
                 </div>
-                
-                <Link href={`/product/${product.id}`} className="btn-primary px-6 py-2 text-sm">
-                  VIEW ITEM
-                </Link>
               </div>
             </div>
 
             {/* Hover Effect */}
-            <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-xl transition-colors duration-300 pointer-events-none"></div>
-          </div>
+            <div className="absolute inset-0 border-2 border-transparent group-hover:border-mario-red/20 rounded-xl transition-colors duration-300 pointer-events-none"></div>
+          </Link>
         ))}
       </div>
 
       {/* View All Products */}
-      <div className="text-center mt-12">
-        <Link href="/shop" className="btn-secondary px-8 py-4 text-lg group inline-flex items-center gap-3">
+      <div className="text-center mt-8 sm:mt-12">
+        <Link href="/shop" className="btn-mario-red px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg inline-flex items-center gap-2 sm:gap-3">
           VIEW ALL PRODUCTS
           <span className="group-hover:translate-x-2 transition-transform">→</span>
         </Link>
-        <p className="text-gray-500 font-barlow mt-4">
-          New products added daily. Check back often for the latest drops!
+        <p className="text-gray-500 font-nunito text-sm sm:text-base mt-3 sm:mt-4">
+          New products added daily. Check back often!
         </p>
       </div>
     </section>

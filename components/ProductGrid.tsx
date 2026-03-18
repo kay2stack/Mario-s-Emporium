@@ -219,17 +219,18 @@ export function ProductGrid({ category, searchQuery }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
       {products.map((product) => (
-        <div
+        <Link
           key={product.id}
-          className="card group relative overflow-hidden"
+          href={`/product/${product.id}`}
+          className="bg-white rounded-xl sm:rounded-2xl p-2 sm:p-4 shadow-sm hover:shadow-md border-2 border-gray-100 hover:border-mario-red/30 group relative overflow-hidden block transition-all"
           onMouseEnter={() => setHoveredProduct(product.id)}
           onMouseLeave={() => setHoveredProduct(null)}
         >
           {/* Product Image */}
-          <Link href={`/product/${product.id}`} className="block relative mb-6">
-            <div className="aspect-square rounded-xl overflow-hidden bg-gray-100">
+          <div className="relative mb-2 sm:mb-4">
+            <div className="aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-gray-100">
               <img 
                 src={product.image} 
                 alt={product.name}
@@ -238,96 +239,84 @@ export function ProductGrid({ category, searchQuery }: ProductGridProps) {
             </div>
             
             {/* Badge */}
-            <div className="absolute top-4 left-4">
-              <span className={`badge ${
-                product.badge === 'JUST IN' || product.badge === 'NEW' ? 'badge-new' :
-                product.badge === 'RARE FIND' || product.badge === 'COLLECTOR' ? 'badge-retro' :
-                'badge-stock'
+            <div className="absolute top-1.5 sm:top-3 left-1.5 sm:left-3">
+              <span className={`text-[9px] sm:text-xs font-fredoka px-1.5 sm:px-2 py-0.5 rounded-full ${
+                product.badge === 'JUST IN' || product.badge === 'NEW' ? 'bg-mario-green text-white' :
+                product.badge === 'RARE FIND' || product.badge === 'COLLECTOR' ? 'bg-mario-yellow text-gray-900' :
+                'bg-mario-red text-white'
               }`}>
                 {product.badge}
               </span>
             </div>
             
-            {/* Stock Indicator */}
-            <div className="absolute top-4 right-4">
-              <div className="flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
-                <div className={`w-2 h-2 rounded-full ${
+            {/* Stock Indicator - hidden on small mobile */}
+            <div className="absolute top-1.5 sm:top-3 right-1.5 sm:right-3 hidden sm:block">
+              <div className="flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-0.5">
+                <div className={`w-1.5 h-1.5 rounded-full ${
                   product.stock > 20 ? 'bg-green-500' :
                   product.stock > 10 ? 'bg-yellow-500' : 'bg-red-500'
                 }`}></div>
-                <span className="text-sm font-barlow font-bold text-secondary">
+                <span className="text-[10px] sm:text-xs font-nunito font-bold text-gray-700">
                   {product.stock} left
                 </span>
               </div>
             </div>
             
-            {/* Quick View on Hover */}
-            <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
+            {/* Quick View on Hover - desktop only */}
+            <div className={`absolute bottom-3 left-1/2 transform -translate-x-1/2 transition-all duration-300 hidden sm:block ${
               hoveredProduct === product.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              <span className="bg-white px-4 py-2 rounded-full shadow-lg font-barlow-condensed font-bold text-secondary flex items-center gap-2">
-                <Eye className="w-4 h-4" />
-                VIEW DETAILS
+              <span className="bg-white px-3 py-1.5 rounded-full shadow-lg font-fredoka text-sm text-gray-800 flex items-center gap-2">
+                <Eye className="w-3 h-3" />
+                VIEW
               </span>
             </div>
-          </Link>
+          </div>
 
           {/* Product Info */}
-          <div className="space-y-3">
+          <div className="space-y-1 sm:space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-500 font-barlow">{product.category}</span>
-              <div className="flex items-center gap-1">
-                <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                <span className="font-barlow font-bold text-secondary">{product.rating}</span>
-                <span className="text-gray-400 text-sm">({product.reviewCount})</span>
+              <span className="text-[10px] sm:text-xs text-gray-500 font-nunito">{product.category}</span>
+              <div className="flex items-center gap-0.5">
+                <Star className="w-3 h-3 sm:w-4 sm:h-4 text-mario-yellow fill-current" />
+                <span className="font-nunito font-bold text-gray-700 text-xs sm:text-sm">{product.rating}</span>
               </div>
             </div>
             
-            <Link href={`/product/${product.id}`}>
-              <h3 className="font-bebas text-xl text-secondary group-hover:text-primary transition-colors">
-                {product.name}
-              </h3>
-            </Link>
+            <h3 className="font-fredoka text-xs sm:text-base text-gray-900 group-hover:text-mario-red transition-colors line-clamp-2 leading-tight">
+              {product.name}
+            </h3>
             
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2">
-              {product.tags.map((tag) => (
-                <span key={tag} className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+            {/* Tags - hidden on mobile */}
+            <div className="hidden sm:flex flex-wrap gap-1">
+              {product.tags.slice(0, 2).map((tag) => (
+                <span key={tag} className="text-[10px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
                   {tag}
                 </span>
               ))}
             </div>
             
-            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-              <div className="space-y-1">
-                <div className="font-bebas text-2xl text-secondary">£{product.price.toFixed(2)}</div>
-                <div className="text-sm text-gray-400 font-barlow line-through">
+            {/* Pricing */}
+            <div className="flex items-end justify-between pt-2 sm:pt-3 border-t border-gray-100">
+              <div>
+                <div className="font-fredoka text-base sm:text-xl text-gray-900">£{product.price.toFixed(2)}</div>
+                <div className="text-[10px] sm:text-xs text-gray-400 font-nunito line-through">
                   £{product.originalPrice.toFixed(2)}
                 </div>
               </div>
-              
-              <Link 
-                href={`/product/${product.id}`}
-                className="btn-primary px-6 py-2 text-sm"
-              >
-                VIEW ITEM
-              </Link>
             </div>
           </div>
 
-          {/* Trending Badge */}
+          {/* Trending Badge - simplified for mobile */}
           {product.id <= 3 && (
-            <div className="absolute -top-2 -right-2">
-              <div className="flex items-center gap-1 bg-gradient-to-r from-primary to-accent text-white px-3 py-1 rounded-full">
-                <TrendingUp className="w-3 h-3" />
-                <span className="text-xs font-barlow-condensed font-bold">TRENDING</span>
+            <div className="absolute top-1.5 sm:-top-1 right-1.5 sm:-right-1">
+              <div className="flex items-center gap-0.5 bg-mario-red text-white px-1.5 sm:px-2 py-0.5 rounded-full">
+                <TrendingUp className="w-2 h-2 sm:w-3 sm:h-3" />
+                <span className="text-[8px] sm:text-[10px] font-fredoka">HOT</span>
               </div>
             </div>
           )}
-
-          {/* Hover Effect */}
-          <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-xl transition-colors duration-300 pointer-events-none"></div>
-        </div>
+        </Link>
       ))}
     </div>
   )
