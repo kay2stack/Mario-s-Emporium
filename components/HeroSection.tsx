@@ -53,16 +53,24 @@ export function HeroSection() {
 
             {/* Main Heading */}
             <div className="space-y-4">
+              <div className="inline-block bg-primary/20 border border-primary/30 rounded-full px-4 py-1 mb-2">
+                <span className="font-barlow-condensed font-bold text-primary text-sm tracking-wider">
+                  YOUR ONE-STOP BARGAIN SHOP
+                </span>
+              </div>
+              
               <h1 className="font-bebas text-5xl md:text-7xl leading-tight">
-                DON&apos;T MISS
+                WE FIND IT.
                 <br />
-                <span className="text-gradient">THE NEXT DROP</span>
+                <span className="text-gradient">YOU FIND IT HERE.</span>
               </h1>
               
               <p className="text-xl text-gray-300 font-barlow max-w-lg">
-                Hidden gems, practical gear, and one-off bargains. 
-                <span className="block mt-2 font-semibold text-primary">
-                  The stock is always changing.
+                Gaming consoles, retro tech, electronics, workwear &amp; more. 
+                We source the <span className="text-white font-semibold">hidden gems</span> and 
+                <span className="text-white font-semibold"> one-off bargains</span> so you don&apos;t have to hunt.
+                <span className="block mt-3 font-semibold text-primary">
+                  New stock drops weekly — grab it before it&apos;s gone.
                 </span>
               </p>
             </div>
@@ -99,23 +107,35 @@ export function HeroSection() {
               </form>
             </div>
 
+            {/* What We Sell */}
+            <div className="pt-8 border-t border-white/20">
+              <p className="text-sm text-gray-400 font-barlow-condensed font-bold mb-4 tracking-wider">WHAT WE SELL:</p>
+              <div className="flex flex-wrap gap-2">
+                {['Gaming Consoles', 'Retro Tech', 'Electronics', 'Workwear & PPE', 'Vintage Finds', 'Tech Accessories'].map((cat) => (
+                  <span key={cat} className="bg-white/10 border border-white/20 rounded-full px-4 py-1.5 font-barlow text-sm text-gray-200">
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-white/20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6">
               <div className="text-center">
-                <div className="font-bebas text-3xl text-primary">500+</div>
-                <div className="text-sm text-gray-300 font-barlow">Products</div>
+                <div className="font-bebas text-3xl text-primary">100+</div>
+                <div className="text-sm text-gray-300 font-barlow">Items in Stock</div>
               </div>
               <div className="text-center">
-                <div className="font-bebas text-3xl text-accent">24h</div>
-                <div className="text-sm text-gray-300 font-barlow">New Drops</div>
+                <div className="font-bebas text-3xl text-accent">500+</div>
+                <div className="text-sm text-gray-300 font-barlow">Happy Buyers</div>
               </div>
               <div className="text-center">
-                <div className="font-bebas text-3xl text-purple-400">98%</div>
-                <div className="text-sm text-gray-300 font-barlow">Satisfaction</div>
+                <div className="font-bebas text-3xl text-purple-400">Weekly</div>
+                <div className="text-sm text-gray-300 font-barlow">New Stock</div>
               </div>
               <div className="text-center">
                 <div className="font-bebas text-3xl text-yellow-400">UK</div>
-                <div className="text-sm text-gray-300 font-barlow">Shipping</div>
+                <div className="text-sm text-gray-300 font-barlow">Fast Shipping</div>
               </div>
             </div>
           </div>
@@ -128,17 +148,19 @@ export function HeroSection() {
               
               <div className="relative bg-surface rounded-2xl p-8 shadow-2xl border border-white/10">
                 <div className="aspect-square rounded-xl bg-gradient-to-br from-gray-900 to-secondary overflow-hidden">
-                  {/* Product Image Placeholder */}
+                  {/* Product Showcase */}
                   <div className="w-full h-full flex items-center justify-center">
                     <div className="text-center space-y-4 p-8">
                       <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center">
                         <Gamepad2 className="w-10 h-10 text-white" />
                       </div>
                       <div>
-                        <div className="font-bebas text-2xl text-white">LIMITED EDITION</div>
-                        <div className="font-barlow-condensed font-bold text-primary text-xl">GAMING BUNDLE</div>
+                        <div className="font-bebas text-2xl text-white">THIS WEEK&apos;S FINDS</div>
+                        <div className="font-barlow-condensed font-bold text-primary text-xl">BROWSE THE SHOP</div>
                       </div>
-                      <div className="badge-new">NEW STOCK</div>
+                      <a href="/shop" className="inline-block badge-new hover:scale-105 transition-transform cursor-pointer">
+                        SEE WHAT&apos;S IN STOCK →
+                      </a>
                     </div>
                   </div>
                 </div>

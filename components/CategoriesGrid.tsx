@@ -62,7 +62,8 @@ export function CategoriesGrid() {
           SHOP BY <span className="text-gradient">CATEGORY</span>
         </h2>
         <p className="text-gray-600 font-barlow text-lg max-w-2xl mx-auto">
-          Browse our constantly changing inventory across all major categories.
+          We hunt down the best deals so you don&apos;t have to. Browse our ever-changing inventory — 
+          <span className="font-semibold text-secondary"> if you see it, grab it!</span>
         </p>
       </div>
 
