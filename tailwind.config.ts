@@ -23,6 +23,7 @@ const config: Config = {
           light: '#48CAE4',
         },
         background: '#F8F9FA',
+        foreground: '#2D3047',
         surface: '#FFFFFF',
       },
       fontFamily: {
