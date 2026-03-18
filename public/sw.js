@@ -1,4 +1,4 @@
-const CACHE_NAME = 'marios-emporium-v1';
+const CACHE_NAME = 'marios-emporium-v2';
 const urlsToCache = [
   '/',
   '/shop',
