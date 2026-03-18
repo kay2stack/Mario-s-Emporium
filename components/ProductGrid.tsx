@@ -1,13 +1,27 @@
 'use client'
 
 import { Star, Eye, TrendingUp } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 
-export function ProductGrid() {
+interface ProductGridProps {
+  category?: string | null
+  searchQuery?: string | null
+}
+
+const categoryMap: Record<string, string[]> = {
+  gaming: ['Gaming'],
+  retro: ['Retro Tech'],
+  workwear: ['Workwear'],
+  electronics: ['Electronics'],
+  audio: ['Audio'],
+  pc: ['PC'],
+}
+
+export function ProductGrid({ category, searchQuery }: ProductGridProps) {
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
 
-  const products = [
+  const allProducts = [
     {
       id: 1,
       name: 'Limited Edition Gaming Console',
@@ -165,6 +179,44 @@ export function ProductGrid() {
       tags: ['Smart', 'Home', 'Hub'],
     },
   ]
+
+  const products = useMemo(() => {
+    let filtered = allProducts
+
+    if (category && categoryMap[category]) {
+      filtered = filtered.filter(p => 
+        categoryMap[category].some(cat => 
+          p.category.toLowerCase() === cat.toLowerCase()
+        )
+      )
+    }
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(p =>
+        p.name.toLowerCase().includes(query) ||
+        p.category.toLowerCase().includes(query) ||
+        p.tags.some(tag => tag.toLowerCase().includes(query))
+      )
+    }
+
+    return filtered
+  }, [category, searchQuery])
+
+  if (products.length === 0) {
+    return (
+      <div className="text-center py-16">
+        <span className="text-6xl mb-4 block">🍄</span>
+        <h3 className="font-fredoka text-2xl text-gray-800 mb-2">No products found</h3>
+        <p className="text-gray-500 font-nunito">
+          {category ? `No items in this category yet. Check back soon!` : `Try a different search term.`}
+        </p>
+        <Link href="/shop" className="inline-block mt-6 btn-mario-red">
+          View All Products
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
