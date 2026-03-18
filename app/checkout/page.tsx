@@ -8,17 +8,18 @@ export default function CheckoutPage() {
   const [step, setStep] = useState(1)
   const [paymentMethod, setPaymentMethod] = useState('card')
 
-  const orderSummary = {
-    subtotal: 949.97,
-    shipping: 0,
-    tax: 189.99,
-    total: 1139.96,
-    items: [
-      { name: 'Limited Edition Gaming Console', price: 499.99, quantity: 1 },
-      { name: 'Vintage Retro Computer', price: 299.99, quantity: 1 },
-      { name: 'Professional Work Gear Set', price: 149.99, quantity: 2 },
-    ]
-  }
+  const items = [
+    { name: 'Limited Edition Gaming Console', price: 499.99, quantity: 1 },
+    { name: 'Vintage Retro Computer', price: 299.99, quantity: 1 },
+    { name: 'Professional Work Gear Set', price: 149.99, quantity: 2 },
+  ]
+  
+  const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+  const shipping = subtotal > 100 ? 0 : 9.99
+  const tax = subtotal * 0.2
+  const total = subtotal + shipping + tax
+  
+  const orderSummary = { subtotal, shipping, tax, total, items }
 
   const nextStep = () => {
     if (step < 3) setStep(step + 1)
