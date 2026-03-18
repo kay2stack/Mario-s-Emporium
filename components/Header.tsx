@@ -37,11 +37,10 @@ export function Header() {
           {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
 
-        {/* Logo with Mushroom */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <span className="text-3xl">🍄</span>
-          <span className="font-fredoka text-xl md:text-2xl text-white hidden sm:block" style={{ textShadow: '2px 2px 0 #b5100e' }}>
-            Mario&apos;s <span className="text-mario-yellow">Emporium</span>
+        {/* Logo */}
+        <Link href="/" className="flex items-center shrink-0">
+          <span className="font-fredoka text-sm sm:text-xl md:text-2xl text-white" style={{ textShadow: '1px 1px 0 #b5100e' }}>
+            Super Mario&apos;s <span className="text-mario-yellow">Emporium</span>
           </span>
         </Link>
 
