@@ -239,13 +239,18 @@ export default function CartPage() {
               )}
 
               {/* Checkout Button */}
-              <Link
-                href="/checkout"
-                className="btn-primary w-full text-center py-4 text-lg mt-6"
-                disabled={cartItems.length === 0}
-              >
-                PROCEED TO CHECKOUT
-              </Link>
+              {cartItems.length > 0 ? (
+                <Link
+                  href="/checkout"
+                  className="btn-primary w-full text-center py-4 text-lg mt-6"
+                >
+                  PROCEED TO CHECKOUT
+                </Link>
+              ) : (
+                <span className="btn-primary w-full text-center py-4 text-lg mt-6 opacity-50 cursor-not-allowed block">
+                  PROCEED TO CHECKOUT
+                </span>
+              )}
 
               {/* Payment Methods */}
               <div className="pt-6 border-t border-gray-100">
