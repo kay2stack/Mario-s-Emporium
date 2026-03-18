@@ -1,6 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import { FilterBar } from '@/components/FilterBar'
 import { ProductGrid } from '@/components/ProductGrid'
 import { Pagination } from '@/components/Pagination'
@@ -15,7 +16,7 @@ const categoryNames: Record<string, string> = {
   pc: '💻 PC & Peripherals',
 }
 
-export default function ShopPage() {
+function ShopContent() {
   const searchParams = useSearchParams()
   const category = searchParams.get('category')
   const search = searchParams.get('search')
@@ -23,7 +24,7 @@ export default function ShopPage() {
   const categoryTitle = category ? categoryNames[category] || category.toUpperCase() : null
 
   return (
-    <div className="section-padding py-8">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       {/* Hero */}
       <div className="mb-12">
         {category ? (
@@ -121,5 +122,20 @@ export default function ShopPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={
+      <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="text-center py-12">
+          <span className="text-4xl animate-bounce inline-block">🍄</span>
+          <p className="font-nunito text-gray-500 mt-4">Loading products...</p>
+        </div>
+      </div>
+    }>
+      <ShopContent />
+    </Suspense>
   )
 }
