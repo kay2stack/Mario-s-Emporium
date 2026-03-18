@@ -1,6 +1,6 @@
 'use client'
 
-import { Star, ShoppingBag, Eye, TrendingUp } from 'lucide-react'
+import { Star, Eye, TrendingUp } from 'lucide-react'
 import { useState } from 'react'
 import Link from 'next/link'
 
@@ -216,19 +216,14 @@ export function ProductGrid() {
               </div>
             </div>
             
-            {/* Quick Actions */}
-            <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 transition-all duration-300 ${
+            {/* Quick View on Hover */}
+            <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
               hoveredProduct === product.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              <button className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow">
-                <Eye className="w-5 h-5 text-secondary" />
-              </button>
-              <button 
-                onClick={() => addToCart(product.id)}
-                className="p-3 bg-primary text-white rounded-full shadow-lg hover:shadow-xl transition-shadow hover:bg-primary-dark"
-              >
-                <ShoppingBag className="w-5 h-5" />
-              </button>
+              <span className="bg-white px-4 py-2 rounded-full shadow-lg font-barlow-condensed font-bold text-secondary flex items-center gap-2">
+                <Eye className="w-4 h-4" />
+                VIEW DETAILS
+              </span>
             </div>
           </Link>
 
