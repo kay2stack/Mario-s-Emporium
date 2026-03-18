@@ -2,6 +2,7 @@
 
 import { Star, ShoppingBag, Eye, TrendingUp } from 'lucide-react'
 import { useState } from 'react'
+import Link from 'next/link'
 
 export function FeaturedProducts() {
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
@@ -87,7 +88,7 @@ export function FeaturedProducts() {
             onMouseLeave={() => setHoveredProduct(null)}
           >
             {/* Product Image */}
-            <div className="relative mb-6">
+            <Link href={`/product/${product.id}`} className="relative mb-6 block">
               <div className={`aspect-square rounded-xl bg-gradient-to-br ${product.imageColor} overflow-hidden`}>
                 <div className="w-full h-full flex items-center justify-center p-8">
                   <div className="text-center space-y-4">
@@ -127,18 +128,16 @@ export function FeaturedProducts() {
                 </div>
               </div>
               
-              {/* Quick Actions */}
-              <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 transition-all duration-300 ${
+              {/* Quick View on Hover */}
+              <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
                 hoveredProduct === product.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}>
-                <button className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow">
-                  <Eye className="w-5 h-5 text-secondary" />
-                </button>
-                <button className="p-3 bg-primary text-white rounded-full shadow-lg hover:shadow-xl transition-shadow hover:bg-primary-dark">
-                  <ShoppingBag className="w-5 h-5" />
-                </button>
+                <span className="bg-white px-4 py-2 rounded-full shadow-lg font-barlow-condensed font-bold text-secondary flex items-center gap-2">
+                  <Eye className="w-4 h-4" />
+                  VIEW DETAILS
+                </span>
               </div>
-            </div>
+            </Link>
 
             {/* Product Info */}
             <div className="space-y-3">
@@ -151,9 +150,11 @@ export function FeaturedProducts() {
                 </div>
               </div>
               
-              <h3 className="font-bebas text-xl text-secondary group-hover:text-primary transition-colors">
-                {product.name}
-              </h3>
+              <Link href={`/product/${product.id}`}>
+                <h3 className="font-bebas text-xl text-secondary group-hover:text-primary transition-colors">
+                  {product.name}
+                </h3>
+              </Link>
               
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 <div className="space-y-1">
@@ -163,9 +164,9 @@ export function FeaturedProducts() {
                   </div>
                 </div>
                 
-                <button className="btn-primary px-6 py-2 text-sm">
-                  ADD TO CART
-                </button>
+                <Link href={`/product/${product.id}`} className="btn-primary px-6 py-2 text-sm">
+                  VIEW ITEM
+                </Link>
               </div>
             </div>
 

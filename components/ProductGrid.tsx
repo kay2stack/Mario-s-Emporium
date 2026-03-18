@@ -166,11 +166,6 @@ export function ProductGrid() {
     },
   ]
 
-  const addToCart = (productId: number) => {
-    console.log('Added to cart:', productId)
-    // Implement cart logic here
-  }
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {products.map((product) => (
@@ -271,12 +266,12 @@ export function ProductGrid() {
                 </div>
               </div>
               
-              <button 
-                onClick={() => addToCart(product.id)}
+              <Link 
+                href={`/product/${product.id}`}
                 className="btn-primary px-6 py-2 text-sm"
               >
-                ADD TO CART
-              </button>
+                VIEW ITEM
+              </Link>
             </div>
           </div>
 

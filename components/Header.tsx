@@ -1,19 +1,28 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, ShoppingBag, Bell, Search } from 'lucide-react'
+import { Menu, X, ShoppingBag, Search } from 'lucide-react'
 import Link from 'next/link'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const navigation = [
-    { name: 'Gaming & Consoles', href: '/shop/gaming' },
-    { name: 'Electronics', href: '/shop/electronics' },
-    { name: 'Retro Tech', href: '/shop/retro-tech' },
-    { name: 'Workwear & PPE', href: '/shop/workwear' },
+    { name: 'Gaming & Consoles', href: '/shop?category=gaming' },
+    { name: 'Electronics', href: '/shop?category=electronics' },
+    { name: 'Retro Tech', href: '/shop?category=retro' },
+    { name: 'Workwear & PPE', href: '/shop?category=workwear' },
     { name: 'All Categories', href: '/shop' },
   ]
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      window.location.href = `/shop?search=${encodeURIComponent(searchQuery)}`
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 glass-effect border-b">
@@ -58,24 +67,43 @@ export function Header() {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center space-x-4">
-            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors hidden sm:block">
+          <div className="flex items-center space-x-2">
+            {/* Search Toggle */}
+            <button 
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
               <Search className="w-5 h-5 text-secondary" />
             </button>
             
-            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors relative">
-              <Bell className="w-5 h-5 text-secondary" />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></span>
-            </button>
-            
-            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors relative">
+            {/* Cart Link */}
+            <Link href="/cart" className="p-2 rounded-lg hover:bg-gray-100 transition-colors relative">
               <ShoppingBag className="w-5 h-5 text-secondary" />
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-white text-xs rounded-full flex items-center justify-center font-barlow-condensed font-bold">
-                3
-              </span>
-            </button>
+            </Link>
           </div>
         </div>
+
+        {/* Search Bar */}
+        {searchOpen && (
+          <div className="py-3 border-t">
+            <form onSubmit={handleSearch} className="flex gap-2">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search gaming gear, retro tech, electronics..."
+                  className="input-field pl-10 w-full"
+                  autoFocus
+                />
+              </div>
+              <button type="submit" className="btn-primary px-6">
+                SEARCH
+              </button>
+            </form>
+          </div>
+        )}
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
@@ -93,16 +121,13 @@ export function Header() {
               ))}
               
               <div className="pt-4 border-t">
-                <div className="flex items-center space-x-2">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="text"
-                      placeholder="Search products..."
-                      className="input-field pl-10"
-                    />
-                  </div>
-                </div>
+                <Link href="/cart" className="flex items-center gap-2 py-2 px-4 text-secondary hover:text-primary font-barlow-condensed font-bold">
+                  <ShoppingBag className="w-5 h-5" />
+                  View Cart
+                </Link>
+                <Link href="/contact" className="flex items-center gap-2 py-2 px-4 text-secondary hover:text-primary font-barlow-condensed font-bold">
+                  Contact Us
+                </Link>
               </div>
             </div>
           </div>

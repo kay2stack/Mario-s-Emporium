@@ -20,10 +20,10 @@ export function Footer() {
   ]
 
   const shopCategories = [
-    { name: 'Gaming & Consoles', href: '/shop/gaming' },
-    { name: 'Electronics', href: '/shop/electronics' },
-    { name: 'Retro Tech', href: '/shop/retro-tech' },
-    { name: 'Workwear & PPE', href: '/shop/workwear' },
+    { name: 'Gaming & Consoles', href: '/shop?category=gaming' },
+    { name: 'Electronics', href: '/shop?category=electronics' },
+    { name: 'Retro Tech', href: '/shop?category=retro' },
+    { name: 'Workwear & PPE', href: '/shop?category=workwear' },
     { name: 'All Categories', href: '/shop' },
   ]
 
