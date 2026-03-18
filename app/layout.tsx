@@ -17,9 +17,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: "Super Mario's Emporium - Hidden Gems & One-Off Bargains",
-  description: 'Discover hidden gems, practical gear, and one-off bargains. The stock is always changing at Super Mario\'s Emporium.',
-  keywords: ['gaming gear', 'retro tech', 'electronics', 'workwear', 'bargains', 'stock drops', 'super mario'],
+  title: "Mario's Emporium - Hidden Gems & One-Off Bargains",
+  description: 'Discover hidden gems, practical gear, and one-off bargains. The stock is always changing at Mario\'s Emporium.',
+  keywords: ['gaming gear', 'retro tech', 'electronics', 'workwear', 'bargains', 'stock drops', 'mario'],
   manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,
@@ -27,13 +27,13 @@ export const metadata: Metadata = {
     title: "Mario's Emporium",
   },
   openGraph: {
-    title: "Super Mario's Emporium",
+    title: "Mario's Emporium",
     description: 'Hidden gems, practical gear, and one-off bargains',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Super Mario's Emporium",
+    title: "Mario's Emporium",
     description: 'The stock is always changing',
   },
 }

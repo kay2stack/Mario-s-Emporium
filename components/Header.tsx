@@ -40,7 +40,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <span className="font-fredoka text-sm sm:text-xl md:text-2xl text-white" style={{ textShadow: '1px 1px 0 #b5100e' }}>
-            Super Mario&apos;s <span className="text-mario-yellow">Emporium</span>
+            Mario&apos;s <span className="text-mario-yellow">Emporium</span>
           </span>
         </Link>
 

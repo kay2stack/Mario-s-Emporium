@@ -116,24 +116,23 @@ export function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-mario-green mt-1 flex-shrink-0" />
                 <p className="text-gray-400 font-nunito">
-                  123 Gaming Street<br />
-                  Tech City, TC1 2AB<br />
-                  United Kingdom
+                  UK Based<br />
+                  Nationwide Delivery
                 </p>
               </div>
               
               <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-mario-green" />
-                <a href="tel:+441234567890" className="text-gray-400 hover:text-mario-yellow transition-colors font-nunito">
-                  +44 1234 567890
+                <Mail className="w-5 h-5 text-mario-green" />
+                <a href="mailto:mariosemporium@outlook.com" className="text-gray-400 hover:text-mario-yellow transition-colors font-nunito">
+                  mariosemporium@outlook.com
                 </a>
               </div>
               
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-mario-green" />
-                <a href="mailto:hello@mariosemporium.com" className="text-gray-400 hover:text-mario-yellow transition-colors font-nunito">
-                  hello@mariosemporium.com
-                </a>
+                <Phone className="w-5 h-5 text-mario-green" />
+                <Link href="/contact" className="text-gray-400 hover:text-mario-yellow transition-colors font-nunito">
+                  Contact us for enquiries
+                </Link>
               </div>
             </div>
           </div>

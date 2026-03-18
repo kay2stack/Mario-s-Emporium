@@ -16,17 +16,39 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    
+    try {
+      // Submit to Formspree
+      const response = await fetch('https://formspree.io/f/xwpkgpnj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      })
+      
+      if (response.ok) {
+        setIsSubmitted(true)
+      } else {
+        alert('There was an error sending your message. Please try again.')
+      }
+    } catch (error) {
+      alert('There was an error sending your message. Please try again.')
+    }
+    
     setIsSubmitting(false)
-    setIsSubmitted(true)
   }
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'hello@mariosemporium.com', href: 'mailto:hello@mariosemporium.com' },
-    { icon: Phone, label: 'Phone', value: '+44 1234 567890', href: 'tel:+441234567890' },
-    { icon: MapPin, label: 'Address', value: '123 Gaming Street, Tech City, TC1 2AB', href: null },
-    { icon: Clock, label: 'Hours', value: 'Mon-Fri 9am-6pm, Sat 10am-4pm', href: null },
+    { icon: Mail, label: 'Email', value: 'mariosemporium@outlook.com', href: 'mailto:mariosemporium@outlook.com' },
+    { icon: Phone, label: 'Phone', value: 'Contact us for details', href: null },
+    { icon: MapPin, label: 'Location', value: 'UK Based - Nationwide Delivery', href: null },
+    { icon: Clock, label: 'Response Time', value: 'Within 24 hours', href: null },
   ]
 
   const subjects = [

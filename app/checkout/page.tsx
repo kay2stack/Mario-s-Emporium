@@ -319,9 +319,12 @@ export default function CheckoutPage() {
                 {paymentMethod === 'crypto' && (
                   <div className="pt-6 border-t border-gray-100 space-y-4">
                     <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6">
-                      <h4 className="font-bebas text-xl text-secondary mb-3">Pay with Crypto</h4>
+                      <div className="flex items-center gap-2 mb-3">
+                        <h4 className="font-bebas text-xl text-secondary">Pay with Crypto</h4>
+                        <span className="bg-mario-yellow text-gray-900 text-xs font-fredoka px-2 py-0.5 rounded-full">COMING SOON</span>
+                      </div>
                       <p className="text-gray-600 font-barlow text-sm mb-4">
-                        We accept multiple cryptocurrencies via our secure payment processor.
+                        We&apos;re setting up crypto payments! Soon you&apos;ll be able to pay with:
                       </p>
                       <div className="flex flex-wrap gap-2 mb-4">
                         {['Bitcoin (BTC)', 'Ethereum (ETH)', 'USDC', 'USDT', 'Solana (SOL)'].map((coin) => (
@@ -331,14 +334,8 @@ export default function CheckoutPage() {
                         ))}
                       </div>
                       <div className="text-xs text-gray-500 font-barlow">
-                        Powered by Coinbase Commerce / NOWPayments
+                        For now, please select Card or PayPal, or contact us for alternative arrangements.
                       </div>
-                    </div>
-                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-                      <p className="text-amber-800 font-barlow text-xs">
-                        <strong>Note:</strong> Crypto payments are final and non-refundable to the same wallet. 
-                        Refunds will be issued in GBP to your PayPal or bank account.
-                      </p>
                     </div>
                   </div>
                 )}
@@ -534,7 +531,6 @@ export default function CheckoutPage() {
                   <Link href="/contact" className="text-primary hover:underline">
                     Contact our support team
                   </Link>
-                  {' '}or call +44 1234 567890
                 </p>
               </div>
             </div>
