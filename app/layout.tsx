@@ -1,0 +1,45 @@
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: "Super Mario's Emporium - Hidden Gems & One-Off Bargains",
+  description: 'Discover hidden gems, practical gear, and one-off bargains. The stock is always changing at Super Mario\'s Emporium.',
+  keywords: ['gaming gear', 'retro tech', 'electronics', 'workwear', 'bargains', 'stock drops', 'super mario'],
+  openGraph: {
+    title: "Super Mario's Emporium",
+    description: 'Hidden gems, practical gear, and one-off bargains',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Super Mario's Emporium",
+    description: 'The stock is always changing',
+  },
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className={`${inter.className} min-h-screen flex flex-col bg-gradient-to-b from-background to-gray-50`}>
+        <Header />
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
+  )
+}
