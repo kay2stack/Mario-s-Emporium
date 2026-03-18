@@ -171,12 +171,10 @@ export function FeaturedProducts() {
 
       {/* View All Products */}
       <div className="text-center mt-12">
-        <button className="btn-secondary px-8 py-4 text-lg group">
-          <span className="flex items-center gap-3">
-            VIEW ALL PRODUCTS
-            <span className="group-hover:translate-x-2 transition-transform">→</span>
-          </span>
-        </button>
+        <Link href="/shop" className="btn-secondary px-8 py-4 text-lg group inline-flex items-center gap-3">
+          VIEW ALL PRODUCTS
+          <span className="group-hover:translate-x-2 transition-transform">→</span>
+        </Link>
         <p className="text-gray-500 font-barlow mt-4">
           New products added daily. Check back often for the latest drops!
         </p>

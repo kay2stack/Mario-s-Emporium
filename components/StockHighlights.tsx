@@ -1,6 +1,7 @@
 'use client'
 
 import { Gamepad2, Cpu, Shield, Zap, TrendingUp, Clock } from 'lucide-react'
+import Link from 'next/link'
 
 export function StockHighlights() {
   const highlights = [
@@ -11,6 +12,7 @@ export function StockHighlights() {
       count: '42 new items',
       color: 'from-primary to-primary/80',
       badge: 'HOT',
+      href: '/shop?category=gaming',
     },
     {
       icon: Cpu,
@@ -19,6 +21,7 @@ export function StockHighlights() {
       count: '18 rare finds',
       color: 'from-accent to-accent/80',
       badge: 'RARE',
+      href: '/shop?category=retro',
     },
     {
       icon: Shield,
@@ -27,6 +30,7 @@ export function StockHighlights() {
       count: '56 in stock',
       color: 'from-green-500 to-green-400',
       badge: 'ESSENTIAL',
+      href: '/shop?category=workwear',
     },
     {
       icon: Zap,
@@ -35,6 +39,7 @@ export function StockHighlights() {
       count: '89 products',
       color: 'from-purple-500 to-purple-400',
       badge: 'NEW',
+      href: '/shop?category=electronics',
     },
   ]
 
@@ -56,9 +61,10 @@ export function StockHighlights() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {highlights.map((item, index) => (
-          <div
+          <Link
             key={item.title}
-            className="card group hover:scale-[1.02] transition-transform duration-300"
+            href={item.href}
+            className="card group hover:scale-[1.02] transition-transform duration-300 block"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             <div className="flex items-start justify-between mb-4">
@@ -78,11 +84,11 @@ export function StockHighlights() {
             
             <div className="flex items-center justify-between pt-4 border-t border-gray-100">
               <span className="font-barlow-condensed font-bold text-secondary">{item.count}</span>
-              <button className="text-primary hover:text-primary-dark font-barlow-condensed font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+              <span className="text-primary hover:text-primary-dark font-barlow-condensed font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
                 View All →
-              </button>
+              </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
