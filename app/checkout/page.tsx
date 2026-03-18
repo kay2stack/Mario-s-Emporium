@@ -211,11 +211,15 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="space-y-4">
-                  {['card', 'paypal', 'apple-pay'].map((method) => (
+                  {[
+                    { id: 'card', name: 'Credit / Debit Card', desc: 'Visa, Mastercard, Amex', icon: '💳' },
+                    { id: 'paypal', name: 'PayPal', desc: 'Pay with your PayPal account', icon: '🅿️' },
+                    { id: 'crypto', name: 'Cryptocurrency', desc: 'Bitcoin, Ethereum, USDC & more', icon: '₿' },
+                  ].map((method) => (
                     <label
-                      key={method}
+                      key={method.id}
                       className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                        paymentMethod === method
+                        paymentMethod === method.id
                           ? 'border-primary bg-primary/5'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
@@ -223,22 +227,20 @@ export default function CheckoutPage() {
                       <input
                         type="radio"
                         name="payment"
-                        value={method}
-                        checked={paymentMethod === method}
+                        value={method.id}
+                        checked={paymentMethod === method.id}
                         onChange={(e) => setPaymentMethod(e.target.value)}
                         className="w-5 h-5 text-primary"
                       />
                       <div className="flex-1">
-                        <div className="font-barlow-condensed font-bold text-secondary capitalize">
-                          {method.replace('-', ' ')}
+                        <div className="font-barlow-condensed font-bold text-secondary">
+                          {method.name}
                         </div>
                         <div className="text-sm text-gray-500 font-barlow">
-                          {method === 'card' && 'Pay with credit or debit card'}
-                          {method === 'paypal' && 'Pay with your PayPal account'}
-                          {method === 'apple-pay' && 'Pay with Apple Pay'}
+                          {method.desc}
                         </div>
                       </div>
-                      <div className="w-12 h-8 bg-gray-100 rounded"></div>
+                      <div className="text-2xl">{method.icon}</div>
                     </label>
                   ))}
                 </div>
@@ -296,6 +298,50 @@ export default function CheckoutPage() {
                     </div>
                   </div>
                 )}
+
+                {/* PayPal Info */}
+                {paymentMethod === 'paypal' && (
+                  <div className="pt-6 border-t border-gray-100">
+                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+                      <div className="text-4xl mb-3">🅿️</div>
+                      <h4 className="font-bebas text-xl text-secondary mb-2">PayPal Checkout</h4>
+                      <p className="text-gray-600 font-barlow text-sm mb-4">
+                        You&apos;ll be redirected to PayPal to complete your purchase securely.
+                      </p>
+                      <div className="text-xs text-gray-500 font-barlow">
+                        Supports PayPal balance, linked cards, and Pay in 3
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Crypto Info */}
+                {paymentMethod === 'crypto' && (
+                  <div className="pt-6 border-t border-gray-100 space-y-4">
+                    <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6">
+                      <h4 className="font-bebas text-xl text-secondary mb-3">Pay with Crypto</h4>
+                      <p className="text-gray-600 font-barlow text-sm mb-4">
+                        We accept multiple cryptocurrencies via our secure payment processor.
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {['Bitcoin (BTC)', 'Ethereum (ETH)', 'USDC', 'USDT', 'Solana (SOL)'].map((coin) => (
+                          <span key={coin} className="bg-white/80 px-3 py-1 rounded-full text-xs font-barlow-condensed font-bold text-secondary">
+                            {coin}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="text-xs text-gray-500 font-barlow">
+                        Powered by Coinbase Commerce / NOWPayments
+                      </div>
+                    </div>
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                      <p className="text-amber-800 font-barlow text-xs">
+                        <strong>Note:</strong> Crypto payments are final and non-refundable to the same wallet. 
+                        Refunds will be issued in GBP to your PayPal or bank account.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -344,15 +390,19 @@ export default function CheckoutPage() {
                   <div className="bg-gray-50 rounded-xl p-4 flex items-center justify-between">
                     <div>
                       <div className="font-barlow font-bold text-secondary capitalize">
-                        {paymentMethod.replace('-', ' ')}
+                        {paymentMethod === 'crypto' ? 'Cryptocurrency' : paymentMethod.replace('-', ' ')}
                       </div>
                       <div className="text-sm text-gray-500 font-barlow">
                         {paymentMethod === 'card' && 'Card ending in 3456'}
                         {paymentMethod === 'paypal' && 'Pay with PayPal'}
-                        {paymentMethod === 'apple-pay' && 'Apple Pay'}
+                        {paymentMethod === 'crypto' && 'Bitcoin, Ethereum, USDC & more'}
                       </div>
                     </div>
-                    <div className="w-12 h-8 bg-gray-200 rounded"></div>
+                    <div className="text-2xl">
+                      {paymentMethod === 'card' && '💳'}
+                      {paymentMethod === 'paypal' && '🅿️'}
+                      {paymentMethod === 'crypto' && '₿'}
+                    </div>
                   </div>
                 </div>
 

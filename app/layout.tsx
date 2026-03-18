@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { AnnouncementBanner } from '@/components/AnnouncementBanner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -34,6 +35,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col bg-gradient-to-b from-background to-gray-50`}>
+        <AnnouncementBanner />
         <Header />
         <main className="flex-1">
           {children}

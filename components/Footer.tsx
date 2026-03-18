@@ -1,5 +1,14 @@
 import Link from 'next/link'
-import { Facebook, Twitter, Instagram, Youtube, Mail, MapPin, Phone } from 'lucide-react'
+import { Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react'
+
+// Custom eBay icon component
+function EbayIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M5.52 9.04c-2.4 0-3.52 1.52-3.52 3.2 0 2.08 1.52 3.2 3.68 3.2 1.44 0 2.48-.48 3.04-1.04l-1.04-1.2c-.4.4-1.04.72-1.84.72-1.12 0-1.84-.56-2-1.36h5.2v-.56c0-2.08-1.12-2.96-3.52-2.96zm-1.68 2.56c.08-.72.64-1.2 1.6-1.2s1.52.48 1.6 1.2H3.84zm7.2-2.4v6h1.76v-2.24c0-1.36.72-1.92 1.6-1.92.72 0 1.12.4 1.12 1.28v2.88h1.76v-3.2c0-1.6-.88-2.4-2.24-2.4-.96 0-1.68.4-2.08.96h-.08v-.8H9.36v.44zm9.28-.16c-1.76 0-2.88 1.04-2.88 2.56s1.12 2.56 2.88 2.56 2.88-1.04 2.88-2.56-1.12-2.56-2.88-2.56zm0 3.76c-.72 0-1.12-.48-1.12-1.2s.4-1.2 1.12-1.2 1.12.48 1.12 1.2-.4 1.2-1.12 1.2z"/>
+    </svg>
+  )
+}
 
 export function Footer() {
   const infoLinks = [
@@ -18,11 +27,11 @@ export function Footer() {
     { name: 'All Categories', href: '/shop' },
   ]
 
+  // TODO: Replace with actual social media URLs
   const socialLinks = [
-    { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
-    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-    { icon: Youtube, href: 'https://youtube.com', label: 'YouTube' },
+    { icon: Facebook, href: 'https://facebook.com/mariosemporium', label: 'Facebook' },
+    { icon: Instagram, href: 'https://instagram.com/mariosemporium', label: 'Instagram' },
+    { icon: EbayIcon, href: 'https://ebay.co.uk/usr/mariosemporium', label: 'eBay' },
   ]
 
   return (
@@ -145,8 +154,23 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Payment Methods */}
+        <div className="mt-12 pt-8 border-t border-white/20">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-gray-400 font-barlow text-sm">We accept:</p>
+            <div className="flex items-center gap-3 flex-wrap justify-center">
+              <div className="bg-white/10 rounded px-3 py-1.5 text-xs font-barlow-condensed font-bold">PayPal</div>
+              <div className="bg-white/10 rounded px-3 py-1.5 text-xs font-barlow-condensed font-bold">Visa</div>
+              <div className="bg-white/10 rounded px-3 py-1.5 text-xs font-barlow-condensed font-bold">Mastercard</div>
+              <div className="bg-white/10 rounded px-3 py-1.5 text-xs font-barlow-condensed font-bold flex items-center gap-1">
+                <span className="text-yellow-400">₿</span> Crypto
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Copyright */}
-        <div className="mt-12 pt-8 border-t border-white/20 text-center">
+        <div className="mt-8 pt-8 border-t border-white/20 text-center">
           <p className="text-gray-400 font-barlow">
             © {new Date().getFullYear()} Super Mario&apos;s Emporium. All rights reserved.
           </p>
